@@ -1,0 +1,216 @@
+<mat-toolbar color="primary" class="mat-elevation-z6">
+
+  <button mat-icon-button matTooltip="Punto U" (click)="opened=!opened">
+    <mat-icon>home</mat-icon>
+  </button>
+
+  <span class="spacer"></span>
+
+  <mat-menu #catalogo="matMenu">
+  </mat-menu>
+  <button mat-button routerLink="/ventasProductos">
+    <mat-icon>shopping_bag</mat-icon>
+    <strong><span>Catalogo Ventas</span></strong>
+  </button>
+
+  <mat-menu #cliente="matMenu">
+    <ng-template matMenuContent>
+      <button mat-menu-item routerLink="/registrarCliente">Registrar</button>
+      <button mat-menu-item routerLink="/buscarCliente">Buscar</button>
+    </ng-template>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="cliente">
+    <mat-icon>person</mat-icon>
+    <span> Clientes</span>
+  </button>
+
+  <span class="spacer"></span>
+
+  <mat-menu #articulo="matMenu">
+    <ng-template matMenuContent>
+      <button mat-menu-item routerLink="/registrarArticulo">Registrar</button>
+      <button mat-menu-item routerLink="/buscarArticulo">Buscar</button>
+    </ng-template>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="articulo">
+    <mat-icon>article</mat-icon>
+    <span> Articulos</span>
+  </button>
+
+
+  <mat-menu #ubicacion="matMenu">
+    <ng-template matMenuContent>
+      <button mat-menu-item routerLink="/registrarUbicacion">Registrar</button>
+      <button mat-menu-item routerLink="/buscarUbicacion">Buscar</button>
+    </ng-template>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="ubicacion">
+    <mat-icon>location_on</mat-icon>
+    <span> Ubicaciones</span>
+  </button>
+
+  <span class="spacer"></span>
+
+  <mat-menu #proveedor="matMenu">
+    <ng-template matMenuContent>
+      <button mat-menu-item routerLink="/registrarProveedor">Registrar</button>
+      <button mat-menu-item routerLink="/buscarProveedor">Buscar</button>
+    </ng-template>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="proveedor">
+    <mat-icon>supervisor_account</mat-icon>
+    <span> Proveedores</span>
+  </button>
+
+  <mat-menu #pedido="matMenu">
+  </mat-menu>
+  <button mat-button routerLink="/comprasProductos">
+    <mat-icon>shopping_basket</mat-icon>
+  <strong><span>Catalogo Compras</span></strong>
+  </button>
+
+
+  <span class="spacer"></span>
+
+  <button mat-icon-button [matMenuTriggerFor]="usuarios" matTooltip="Gestion Cuentas">
+    <mat-icon>manage_accounts</mat-icon>
+    <mat-menu #usuarios="matMenu">
+      <ng-template matMenuContent>
+        <button mat-menu-item routerLink="/registrarUsuario">Registrar</button>
+        <button mat-menu-item routerLink="/buscarUsuario">Buscar</button>
+      </ng-template>
+    </mat-menu>
+  </button>
+
+  <button mat-icon-button [matMenuTriggerFor]="config" matTooltip="Ajustes">
+    <mat-icon>settings</mat-icon>
+    <mat-menu #config="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="caja">
+        <mat-icon>all_inbox</mat-icon>
+        <span>Caja</span>
+      </button>
+    </mat-menu>   
+    <mat-menu #caja="matMenu">
+      <button mat-menu-item routerLink="/registrarCaja">Registrar</button>
+      <button mat-menu-item routerLink="/buscarCaja">Buscar</button>
+      <button *ngIf="this.tokenService.rolName" mat-menu-item routerLink="/administrarCaja">Administrar</button>
+    </mat-menu>
+  </button>
+
+  <button mat-icon-button matTooltip={{this.tokenService.userName}}>
+    <mat-icon>assignment_ind</mat-icon>
+  </button>
+  <button mat-icon-button routerLink="/login" matTooltip="Salir">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+
+<mat-sidenav-container>
+  <mat-sidenav [(opened)]="opened" mode="push">
+    <mat-nav-list>
+      <mat-list-item routerLink="/menu" matTooltip="Punto U" (click)="opened=!opened">
+        <mat-icon>home</mat-icon>
+      </mat-list-item>
+      <mat-list-item routerLink="/ventasProductos" [class.mat-elevation-z0]="true">
+        <mat-icon>shopping_bag</mat-icon>
+        <span>Catalogo Ventas</span>
+      </mat-list-item>
+        <mat-list-item routerLink="/cotizacionesProductos" [class.mat-elevation-z0]="true">
+        <mat-icon>addchart</mat-icon>
+        <span>Catalogo Cotizaciones</span>
+    </mat-list-item>
+    <mat-list-item  *ngIf="this.tokenService.rolName" routerLink="/devolucionesProductos" [class.mat-elevation-z0]="true">
+      <mat-icon>assignment_return</mat-icon>
+      <span>Catalogo Devoluciones</span>
+  </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-expansion-panel [class.mat-elevation-z0]="true">
+        <mat-expansion-panel-header>
+              <mat-icon>person</mat-icon>
+          <span> Clientes</span>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <a mat-list-item routerLink="/registrarCliente">
+            <span>Registrar</span>
+          </a>
+          <a mat-list-item routerLink="/buscarCliente">
+            <span>Buscar</span>
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+      <mat-divider></mat-divider>
+      <mat-expansion-panel [class.mat-elevation-z0]="true">
+        <mat-expansion-panel-header>
+          <mat-icon>article</mat-icon>
+          <span> Articulos</span>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <a mat-list-item routerLink="/registrarArticulo">
+            <span>Registrar</span>
+          </a>
+          <a mat-list-item routerLink="/buscarArticulo">
+            <span>Buscar</span>
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+      <mat-divider></mat-divider>
+      <mat-expansion-panel [class.mat-elevation-z0]="true">
+        <mat-expansion-panel-header>
+          <mat-icon>location_on</mat-icon>
+          <span> Ubicaciones</span>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <a mat-list-item routerLink="/registrarUbicacion">
+            <span>Registrar</span>
+          </a>
+          <a mat-list-item routerLink="/buscarUbicacion">
+            <span>Buscar</span>
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+      <mat-divider></mat-divider>
+      <mat-expansion-panel [class.mat-elevation-z0]="true">
+        <mat-expansion-panel-header>
+          <mat-icon>supervisor_account</mat-icon>
+          <span> Proveedores</span>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <a mat-list-item routerLink="/registrarProveedor">
+            <span>Registrar</span>
+          </a>
+          <a mat-list-item routerLink="/buscarProveedor">
+            <span>Buscar</span>
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+      <mat-divider></mat-divider>
+      <mat-list-item routerLink="/comprasProductos" [class.mat-elevation-z0]="true">
+        <mat-icon>shopping_basket</mat-icon>
+        <span>Catalogo Compras</span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-expansion-panel [class.mat-elevation-z0]="true">
+        <mat-expansion-panel-header>
+          <mat-icon>table_chart</mat-icon>
+          <span> Reportes</span>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <a mat-list-item routerLink="/reportesVentas">
+            <span>Ventas</span>
+          </a>
+          <a mat-list-item routerLink="/reportesCompras">
+            <span>Compras</span>
+          </a>
+          <a mat-list-item routerLink="/reportesArticulos">
+            <span>Stock Articulos</span>
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <img src="../../assets/PuntoU.jpg" class="img-fluid"
+      style="position: absolute; right: 0; top: 0; z-index: -100; width: 100%; height: 100%;">
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,10 @@
+<section class="my-custom-container">
+    <h2 mat-dialog-title>CONFIRMACION</h2>
+    <div mat-dialog-content>
+        <p>{{mensaje}}</p>
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-button (click)="cerrar()">NO</button>
+        <button mat-button (click)="confirmar()" cdkFocusInitial>SI</button>
+    </div>
+</section>

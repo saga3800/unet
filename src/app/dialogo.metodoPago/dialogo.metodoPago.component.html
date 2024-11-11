@@ -1,0 +1,162 @@
+<section class="my-custom-container">
+    <h2 mat-dialog-title align="center"
+        style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: blue;">PASARELA DE PAGO
+    </h2>
+    <td></td>
+    <div mat-dialog-content align="center">
+        <div *ngIf="isLoadingResults" class="loading-shade">
+            <mat-progress-spinner color="primary" mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+        <mat-stepper #stepper>
+            <mat-step [stepControl]="firstFormControl" errorMessage="Información Requerida">
+                <ng-template matStepLabel>Metodo Pago / Facturación y Vendedor</ng-template>
+                <table>
+                    <tr>
+                        <td>
+                            <mat-form-field class="full-width" appearance="outline" style="margin-top: 10px;">
+                                <mat-label>Forma de Pago</mat-label>
+                                <mat-icon matSuffix>currency_exchange</mat-icon>
+                                <mat-select [(ngModel)]="pasarela.tipoPago" required (valueChange)="changeList($event)">
+                                    <mat-option disabled>Selecciona una opcíon</mat-option>
+                                    <mat-option value="EFECTIVO" selected>Efectivo</mat-option>
+                                    <mat-option value="TRANSFERENCIA">Transferencia</mat-option>
+                                    <mat-option value="MIXTO">Mixto</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Efectivo</mat-label>
+                                <mat-icon matSuffix>monetization_on</mat-icon>
+                                <input style="font-size: 200%;" type="text" matInput [(ngModel)]="pasarela.efectivo"
+                                    name="efectivo" currencyMask [options]="{prefix: '', thousands:',', precision: 0}"
+                                    [disabled]="pasarela.tipoPago !== 'MIXTO'? true:false">
+                                <!--[disabled]="pasarela.tipoPago !== 'EFECTIVO'? true:false"-->
+                            </mat-form-field>
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Transferencia</mat-label>
+                                <mat-icon matSuffix>send_to_mobile</mat-icon>
+                                <input style="font-size: 200%;" type="text" matInput
+                                    [(ngModel)]="pasarela.transferencia" name="transferencia" currencyMask
+                                    [options]="{prefix: '', thousands:',', precision: 0}"
+                                    [disabled]="pasarela.tipoPago !== 'MIXTO'? true:false">
+                                <!--[disabled]="pasarela.tipoPago !== 'TRANSFERENCIA'? true:false"-->
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td>
+                            <mat-form-field class="full-width" appearance="outline" style="margin-top: 10px;">
+                                <mat-label>Factura Electronica</mat-label>
+                                <mat-icon matSuffix>attach_email</mat-icon>
+                                <mat-select [(ngModel)]="pasarela.facturaElectronica" required>
+                                    <mat-option disabled>Selecciona una opcíon</mat-option>
+                                    <mat-option value="NO" selected>NO</mat-option>
+                                    <mat-option value="SI">SI</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Vendedor</mat-label>
+                                <mat-icon matSuffix>co_present</mat-icon>
+                                <mat-select [(ngModel)]="pasarela.vendedor">
+                                    <mat-option disabled selected>Selecciona una opcíon</mat-option>
+                                    <mat-option *ngFor="let vendedor of dataSourceSellers" [value]="vendedor.username">
+                                        {{ vendedor.username }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+                <div>
+                    <button mat-button matStepperNext (click)="setState(firstFormControl);">SIGUIENTE</button>
+                </div>
+            </mat-step>
+            <!--
+            <mat-step [stepControl]="secondFormControl" errorMessage="Información Requerida">
+                    <ng-template matStepLabel>Tipo Factura y Vendedor</ng-template>
+                    <tr>
+                        <td>
+                            <mat-form-field class="full-width" appearance="outline" style="margin-top: 10px;">
+                                <mat-label>Factura Electronica</mat-label>
+                                <mat-icon matSuffix>attach_email</mat-icon>
+                                <mat-select [(ngModel)]="pasarela.facturaElectronica" required>
+                                    <mat-option disabled>Selecciona una opcíon</mat-option>
+                                    <mat-option value="NO" selected>NO</mat-option>
+                                    <mat-option value="SI">SI</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Vendedor</mat-label>
+                                <mat-icon matSuffix>co_present</mat-icon>
+                                <mat-select [(ngModel)]="pasarela.vendedor">
+                                    <mat-option disabled selected>Selecciona una opcíon</mat-option>
+                                    <mat-option *ngFor="let vendedor of dataSourceSellers" [value]="vendedor.username">
+                                        {{ vendedor.username }}
+                                      </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <div>
+                        <button mat-button matStepperPrevious (click)="setState(firstFormControl, 1);">Atras</button>
+                        <button mat-button matStepperNext (click)="setState(secondFormControl, 2);">Siguiente</button>
+                    </div>
+            </mat-step>
+            -->
+            <mat-step>
+                <ng-template matStepLabel>Hecho</ng-template>
+                <p>Completado</p>
+                <tr>
+                    <td>
+                        <mat-form-field class="full-width" appearance="outline" style="margin-top: 10px;">
+                            <mat-label>Imprimir Factura?</mat-label>
+                            <mat-icon matSuffix>print</mat-icon>
+                            <mat-select [(ngModel)]="pasarela.imprimirFactura" required>
+                                <mat-option disabled>Selecciona una opcíon</mat-option>
+                                <mat-option value='false' selected>NO</mat-option>
+                                <div *ngIf="this.tokenService.rolName">
+                                    <mat-option value='true'>SI</mat-option>
+                                </div>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <div>
+                    <button mat-button matStepperPrevious (click)="setState(firstFormControl);">ATRAS</button>
+                    <button mat-button color="primary" [disabled]="firstFormControl.invalid"
+                        (click)="confirmarVenta()">CONFIRMAR</button>
+                </div>
+            </mat-step>
+        </mat-stepper>
+    </div>
+    <h5>
+        <div *ngIf="mensajeFallido" class="alert alert-danger mt-3">
+            {{ mensajeFallido }}
+        </div>
+    </h5>
+    <h5>
+        <div *ngIf="mensajeExitoso" class="alert alert-success mt-3">
+            {{ mensajeExitoso }}
+        </div>
+    </h5>
+    <!--
+    <div mat-dialog-actions align="center">
+        <button mat-button color="primary"
+            [disabled]="firstFormControl.invalid" (click)="confirmarVenta();">CONFIRMAR</button>
+    </div>
+    -->
+</section>

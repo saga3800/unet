@@ -1,0 +1,65 @@
+/* Estilos personalizados */
+body {
+  background-color: #f2f2f2;
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  background-color: #333;
+}
+
+.navbar-brand {
+  color: #fff;
+  font-weight: bold;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background-color: #0078D4; /* Color azul similar al de Hotmail */
+  color: #fff;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: #0078D4; /* Color azul similar al de Hotmail */
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #005A9E; /* Color azul más oscuro al hacer hover */
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+}
+
+/* ... (otros estilos previos) */
+
+/* Estilo para el fondo de la página */
+body {
+  background-image: url('../../assets/PuntoU.jpg'); /* Ruta de la imagen de fondo */
+  background-size: cover; /* Ajusta el tamaño de la imagen para cubrir el fondo */
+  background-repeat: no-repeat; /* Evita la repetición de la imagen */
+  background-attachment: fixed; /* Fija la imagen de fondo */
+}
+
+.loading-shade {
+  position: absolute;
+  z-index: 999;
+  display: flex;
+  margin-top: 15%;
+  margin-left: 45%;
+  margin-right: 45%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* ... (otros estilos previos) */

@@ -1,0 +1,7 @@
+{
+    "/api": {
+      "target": "https://p02--node-launet2--m5lw8pzgzy2k.code.run",
+      "secure": false
+    }
+  }
+  

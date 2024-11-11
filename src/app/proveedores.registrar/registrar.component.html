@@ -1,0 +1,306 @@
+<mat-toolbar color="primary" class="mat-elevation-z6">
+
+  <button mat-icon-button matTooltip="Menu" (click)="opened=!opened">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <button mat-icon-button routerLink="/buscarProveedor" matTooltip="Buscar">
+    <mat-icon>search</mat-icon>
+  </button> 
+
+
+  <span class="spacer"></span>
+  <button mat-fab extended disabled class="colorText">
+    {{tittleForm}}
+  </button>
+
+  <span class="spacer"></span>
+
+  <button mat-icon-button [matMenuTriggerFor]="usuarios" matTooltip="Gestion Cuentas">
+    <mat-icon>manage_accounts</mat-icon>
+    <mat-menu #usuarios="matMenu">
+      <ng-template matMenuContent>
+        <button mat-menu-item routerLink="/registrarUsuario">Registrar</button>
+        <button mat-menu-item routerLink="/buscarUsuario">Buscar</button>
+      </ng-template>
+    </mat-menu>
+  </button> 
+  
+  <button mat-icon-button [matMenuTriggerFor]="config" matTooltip="Ajustes">
+    <mat-icon>settings</mat-icon>
+    <mat-menu #config="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="caja">
+        <mat-icon>all_inbox</mat-icon>
+        <span>Caja</span>
+      </button>
+    </mat-menu>   
+    <mat-menu #caja="matMenu">
+      <button mat-menu-item routerLink="/registrarCaja">Registrar</button>
+      <button mat-menu-item routerLink="/buscarCaja">Buscar</button>
+      <button *ngIf="this.tokenService.rolName" mat-menu-item routerLink="/administrarCaja">Administrar</button>
+    </mat-menu>
+  </button> 
+  <button mat-icon-button matTooltip={{this.tokenService.userName}}>
+    <mat-icon>assignment_ind</mat-icon>
+  </button> 
+  <button mat-icon-button routerLink="/login" matTooltip="Salir">
+    <mat-icon>logout</mat-icon>
+  </button> 
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav [(opened)]="opened" mode="push">
+    <mat-nav-list>
+      <mat-list-item routerLink="/menu" matTooltip="Punto U" (click)="opened=!opened">
+        <mat-icon>home</mat-icon>
+      </mat-list-item>
+      <mat-list-item routerLink="/ventasProductos" [class.mat-elevation-z0]="true">
+        <mat-icon>shopping_bag</mat-icon>
+        <span>Catalogo Ventas</span>
+      </mat-list-item>
+        <mat-list-item routerLink="/cotizacionesProductos" [class.mat-elevation-z0]="true">
+        <mat-icon>addchart</mat-icon>
+        <span>Catalogo Cotizaciones</span>
+    </mat-list-item>
+    <mat-list-item  *ngIf="this.tokenService.rolName" routerLink="/devolucionesProductos" [class.mat-elevation-z0]="true">
+      <mat-icon>assignment_return</mat-icon>
+      <span>Catalogo Devoluciones</span>
+  </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-expansion-panel [class.mat-elevation-z0]="true">
+        <mat-expansion-panel-header>
+              <mat-icon>person</mat-icon>
+          <span> Clientes</span>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <a mat-list-item routerLink="/registrarCliente">
+            <span>Registrar</span>
+          </a>
+          <a mat-list-item routerLink="/buscarCliente">
+            <span>Buscar</span>
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+      <mat-divider></mat-divider>
+      <mat-expansion-panel [class.mat-elevation-z0]="true">
+        <mat-expansion-panel-header>
+          <mat-icon>article</mat-icon>
+          <span> Articulos</span>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <a mat-list-item routerLink="/registrarArticulo">
+            <span>Registrar</span>
+          </a>
+          <a mat-list-item routerLink="/buscarArticulo">
+            <span>Buscar</span>
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+      <mat-divider></mat-divider>
+      <mat-expansion-panel [class.mat-elevation-z0]="true">
+        <mat-expansion-panel-header>
+          <mat-icon>location_on</mat-icon>
+          <span> Ubicaciones</span>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <a mat-list-item routerLink="/registrarUbicacion">
+            <span>Registrar</span>
+          </a>
+          <a mat-list-item routerLink="/buscarUbicacion">
+            <span>Buscar</span>
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+      <mat-divider></mat-divider>
+      <mat-expansion-panel [class.mat-elevation-z0]="true">
+        <mat-expansion-panel-header>
+          <mat-icon>supervisor_account</mat-icon>
+          <span> Proveedores</span>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <a mat-list-item routerLink="/registrarProveedor">
+            <span>Registrar</span>
+          </a>
+          <a mat-list-item routerLink="/buscarProveedor">
+            <span>Buscar</span>
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+      <mat-divider></mat-divider>
+      <mat-list-item routerLink="/comprasProductos" [class.mat-elevation-z0]="true">
+        <mat-icon>shopping_basket</mat-icon>
+        <span>Catalogo Compras</span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-expansion-panel [class.mat-elevation-z0]="true">
+        <mat-expansion-panel-header>
+          <mat-icon>table_chart</mat-icon>
+          <span> Reportes</span>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <a mat-list-item routerLink="/reportesVentas">
+            <span>Ventas</span>
+          </a>
+          <a mat-list-item routerLink="/reportesCompras">
+            <span>Compras</span>
+          </a>
+          <a mat-list-item routerLink="/reportesArticulos">
+            <span>Stock Articulos</span>
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+    </mat-nav-list>
+
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+    
+<mat-card>
+  <div *ngIf="isLoadingResults" class= "loading-shade">
+    <mat-progress-spinner 
+      color="primary" 
+      mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+  <form class="form">
+  <td></td>
+    <table class="full-width" cellspacing="0"><tr>
+      <td><mat-form-field class="full-width"  appearance="outline">
+        <mat-label>Tipo Documento</mat-label>
+        <mat-icon matSuffix>list</mat-icon>
+        <mat-select [(ngModel)]="nuevoProveedor.tipoDocumento" name="tipoDocumento" #fontSize value="NIT" [formControl]="tipoDocumentoFormControl" [errorStateMatcher]="matcher">
+          <mat-option value="CC">Cedula Ciudadanía</mat-option>
+          <mat-option value="NIT">Nit</mat-option>
+          <mat-option value="CE">Cedula Extranjería</mat-option>
+          <mat-option value="TI">Tarjeta Identidad</mat-option>
+          <mat-option value="PAS">Pasaporte</mat-option>
+          <mat-option value="RC">Registro Civil</mat-option>
+        </mat-select>
+      </mat-form-field></td>
+      <td><mat-form-field class="full-width"  appearance="outline">
+        <mat-label>Numero Documento</mat-label>
+        <mat-icon matSuffix>contacts</mat-icon>
+        <input matInput [(ngModel)]="nuevoProveedor.numeroDocumento" name="numeroDocumento"[formControl]="numeroDocumentoFormControl" [errorStateMatcher]="matcher">
+      </mat-form-field></td>
+      <td><mat-form-field class="full-width"  appearance="outline">
+        <mat-label>Nombre - Razon Social</mat-label>
+        <mat-icon matSuffix>description</mat-icon>
+        <input matInput [(ngModel)]="nuevoProveedor.nombreRazonSocial" name="nombreRazonSocial" [formControl]="nombreRazonSocialFormControl" [errorStateMatcher]="matcher">
+      </mat-form-field></td>
+    </tr></table>
+
+    <table class="full-width" cellspacing="0"><tr>
+      <td>
+        <mat-form-field class="full-width"  appearance="outline">
+          <mat-label>Telefono</mat-label>
+          <mat-icon matSuffix>phone</mat-icon>
+          <input matInput [(ngModel)]="nuevoProveedor.telefono" name="telefono" #phone maxlength="10" [formControl]="telefonoFormControl" [errorStateMatcher]="matcher">
+          <mat-hint align="end">{{phone.value.length}} / 10</mat-hint>
+        </mat-form-field>
+      </td>
+      
+      <td>
+    <!--    <mat-form-field class="full-width"  appearance="outline">
+        <mat-label>Extensión</mat-label>
+        <mat-icon matSuffix>settings_phone</mat-icon>
+        <input matInput matInput [(ngModel)]="nuevoProveedor.extension" name="extension" #extention maxlength="4" placeholder="Ex. 1234">
+        <mat-hint align="end">{{extention.value.length}} / 4</mat-hint>
+      </mat-form-field>-->
+    </td>
+      
+      <td><mat-form-field class="full-width"  appearance="outline">
+        <mat-label>Email</mat-label>
+        <mat-icon matSuffix>email</mat-icon>
+          <input type="email" matInput [(ngModel)]="nuevoProveedor.email" name="email" [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                placeholder="Ex. correo@example.com">
+      </mat-form-field></td>
+    </tr></table>
+
+    <p>
+    <table class="full-width" cellspacing="0"><tr>
+      <td><mat-form-field class="full-width"  appearance="outline">
+        <mat-label>Departamento</mat-label>
+        <mat-icon matSuffix>business</mat-icon>
+        <mat-select [(ngModel)]="nuevoProveedor.departamento" name="departamento" #fontSize value="ANT" [formControl]="departamentoFormControl" [errorStateMatcher]="matcher">
+          <mat-option  value="ANT">Antioquia</mat-option>
+        </mat-select>
+      </mat-form-field></td>
+    <td><mat-form-field class="full-width"  appearance="outline">
+      <mat-label>Municipio</mat-label>
+      <mat-icon matSuffix>business</mat-icon>
+      <mat-select [(ngModel)]="nuevoProveedor.municipio" name="municipio" #fontSize value="MED" [formControl]="municipioFormControl" [errorStateMatcher]="matcher">
+        <mat-option value="MED">Medellin</mat-option>
+        <mat-option value="BEL">Bello</mat-option>
+        <mat-option value="ENV">Envigado</mat-option>
+        <mat-option value="SAB">Sabaneta</mat-option>
+        <mat-option value="ITA">Itagui</mat-option>
+        <mat-option value="EST">Estrella</mat-option>
+      </mat-select>
+    </mat-form-field></td>
+      <td><mat-form-field class="full-width"  appearance="outline">
+        <mat-label>Barrio</mat-label>
+        <mat-icon matSuffix>business</mat-icon>
+        <input matInput [(ngModel)]="nuevoProveedor.barrio" name="barrio">
+      </mat-form-field></td>
+    </tr></table>
+
+    <p>
+      <table class="full-width" cellspacing="0"><tr>
+      <td><mat-form-field class="full-width"  appearance="outline">
+        <mat-label>Dirección</mat-label>
+        <mat-icon matSuffix>tour</mat-icon>
+        <input matInput  [(ngModel)]="nuevoProveedor.direccion" name="direccion" required placeholder="Calle 67 #55-89" [formControl]="direccionFormControl" [errorStateMatcher]="matcher">
+      </mat-form-field></td>
+      <td></td>
+      <td><mat-form-field class="full-width"  appearance="outline">
+        <mat-label>Regimen Tributario</mat-label>
+        <mat-icon matSuffix>currency_exchange</mat-icon>
+        <mat-select [(ngModel)]="nuevoProveedor.regimenTributario" name="regimenTributario" #fontSize value="SIM" [formControl]="regimenTributarioFormControl" [errorStateMatcher]="matcher">
+          <mat-option value="SIMPLIFICADO">Simplificado</mat-option>
+          <mat-option value="COMUN">Común</mat-option>
+          <mat-option value="ESPECIAL">Especial</mat-option>
+        </mat-select>
+      </mat-form-field></td>
+    </tr></table>   
+  </form>
+  
+  <div *ngIf="mensajeExitoso" class="alert alert-success mt-3">
+    {{ mensajeExitoso }}
+  </div>  
+  <div *ngIf="mensajeFallido" class="alert alert-danger mt-3">
+    {{ mensajeFallido }}
+  </div>
+
+<div *ngIf="this._id === null">  
+  <mat-card-actions align="end">
+    <button mat-icon-button matTooltip="Guardar" 
+    [disabled]="tipoDocumentoFormControl.invalid || numeroDocumentoFormControl.invalid || nombreRazonSocialFormControl.invalid || telefonoFormControl.invalid || emailFormControl.invalid || departamentoFormControl.invalid || municipioFormControl.invalid || direccionFormControl.invalid || regimenTributarioFormControl.invalid"
+    (click)="guardarProveedor()">
+      <mat-icon>save</mat-icon>
+    </button> 
+    <button mat-icon-button matTooltip="Cancelar"  (click)="refreshPage()">
+      <mat-icon>cancel_presentation</mat-icon>
+    </button>
+  </mat-card-actions>
+</div>
+
+<div *ngIf="this._id !== null">  
+  <mat-card-actions align="end">
+    <button mat-icon-button matTooltip="Editar" 
+    [disabled]="tipoDocumentoFormControl.invalid || numeroDocumentoFormControl.invalid || nombreRazonSocialFormControl.invalid || telefonoFormControl.invalid || emailFormControl.invalid || departamentoFormControl.invalid || municipioFormControl.invalid || direccionFormControl.invalid || regimenTributarioFormControl.invalid"
+    (click)="editarProveedor()">
+      <mat-icon>save</mat-icon>
+    </button> 
+    <button mat-icon-button matTooltip="Regresar" routerLink="/buscarProveedor">
+      <mat-icon>assignment_return</mat-icon>
+    </button>
+  </mat-card-actions>
+</div>
+</mat-card>
+
+    <img src="../../assets/PuntoU.jpg" class="img-fluid"
+    style="position: absolute; right: 0; top: 0; z-index: -100; width: 100%; height: 100%;">
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

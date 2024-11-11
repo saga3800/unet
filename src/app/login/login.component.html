@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Sistema de Inicio de Sesión</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="login.component.css">
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="#">Papelería PuntoU</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card shadow">
+          <div class="card-header">
+            <div *ngIf="isLoadingResults" class="loading-shade">
+              <mat-progress-spinner color="primary" mode="indeterminate">
+              </mat-progress-spinner>
+            </div>
+            <h4 class="text-center">Iniciar Sesión</h4>
+          </div>
+          <div class="card-body">
+            <form >
+              <div class="mb-3">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <mat-icon matSuffix>email</mat-icon>
+                    <input type="email" [(ngModel)]="email" name="email" matInput [formControl]="emailFormControl"
+                      [errorStateMatcher]="matcher" placeholder="Ex. correo@example.com" autocomplete="nope">
+                  </mat-form-field>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                      [attr.aria-pressed]="hide">
+                      <mat-icon matSuffix>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <input type="password" [(ngModel)]="password" name="password" matInput
+                      [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
+                      [type]="hide ? 'password' : 'text'" placeholder="Ex. pAs5w@rd" autocomplete="nope">
+                  </mat-form-field>
+
+                <button type="submit" class="btn btn-primary btn-block"
+                  [disabled]="emailFormControl.invalid || passwordFormControl.invalid" (click)="login()">Iniciar
+                  Sesión</button>
+                <div>
+                  <div *ngIf="authenticationError" class="text-danger mt-2">
+                    Credenciales inválidas. Verifica tus datos e intenta nuevamente.
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      &copy; 2024 Papelería PuntoU | Teléfonos: (300)8002603 | Correo: ppuntou@gmail.com
+    </div>
+  </footer>
+</body>
+
+</html>

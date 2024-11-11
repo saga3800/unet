@@ -1,0 +1,100 @@
+<section class="my-custom-container">
+    <h2 mat-dialog-title align="center"
+        style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: blue;">
+        {{element.descripcion}}</h2>
+    <td></td>
+    <div mat-dialog-content align="center">
+        <p>RESUMEN/ACTUALIZACIÓN ITEM DE VENTA</p>
+        <div>
+            <tr>
+                <td>
+                    <mat-slide-toggle [(ngModel)]="isPrecioCentimetro"
+                        (change)="toggleCentimetro()">Precio Seleccionado</mat-slide-toggle>
+                </td>
+                <td>
+                    <mat-form-field class="full-width" appearance="outline" style="color: black">
+                        <mat-label style="color: black;">Precio X Centimetro</mat-label>
+                        <input matInput type="text"
+                            [ngModel]="articuloCarItem.precioCentimetro | currency : 'USD' : 'symbol' : '1.0-0'"
+                            name="precio" [errorStateMatcher]="matcher" disabled style="color: black;">
+                        <mat-icon matSuffix>attach_money</mat-icon>
+                        <!-- <span matTextSuffix>{{element.detalleArticulo[0].precioVenta | currency }}</span> -->
+                    </mat-form-field>
+                </td>
+            </tr>
+        </div>
+        <div>
+            <tr>
+                <td>
+                    <mat-form-field class="full-width" appearance="outline" style="color: black;">
+                        <mat-label style="color: black; font-weight: bold;">Tamaño Alto Centimetros</mat-label>
+                        <input matInput type="text"
+                        [ngModel]="articuloCarItem.alto" 
+                        name="ancho" [errorStateMatcher]="matcher" #alto
+                            (keyup)="onEnterAlto(alto.value)">
+                        <mat-icon matSuffix>height</mat-icon>
+                        <!-- <span matTextSuffix>{{element.detalleArticulo[0].precioVenta | currency }}</span> -->
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="full-width" appearance="outline" style="color: black;">
+                        <mat-label style="color: black; font-weight: bold;">Tamaño Ancho Centimetros</mat-label>
+                        <input matInput type="text"
+                        [ngModel]="articuloCarItem.ancho" 
+                        name="alto" [errorStateMatcher]="matcher" #ancho
+                            (keyup)="onEnterAncho(ancho.value)">
+                        <mat-icon matSuffix>width_full</mat-icon>
+                        <!-- <span matTextSuffix>{{element.detalleArticulo[0].precioVenta | currency }}</span> -->
+                    </mat-form-field>
+                </td>
+            </tr>
+        </div>
+        <div>
+            <tr>
+                <td>
+                    <mat-form-field class="full-width" appearance="outline" style="color: black;">
+                        <mat-label style="color: black; font-weight: bold;">Tamaño Total Centimetros</mat-label>
+                        <input matInput type="text"
+                        [ngModel]="articuloCarItem.dimensionTotal | number " style="color: black; font-weight: bold;"
+                        name="dimensionTotal" [errorStateMatcher]="matcher" disabled>
+                        <mat-icon matSuffix>open_in_full</mat-icon>
+                        <!-- <span matTextSuffix>{{element.detalleArticulo[0].precioVenta | currency }}</span> -->
+                    </mat-form-field>
+                </td>
+            </tr>
+        </div>
+        <div>
+            <tr>
+                <td>
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Unidades</mat-label>
+                        <input matInput type="text" [ngModel]="articuloCarItem.cantidad" name="cantidad"
+                            [formControl]="cantidadFormControl" [errorStateMatcher]="matcher" #qtyRef
+                            (keyup)="onEnter(qtyRef.value)">
+                        <mat-icon matSuffix>change_circle</mat-icon>
+                        <!-- <span matTextSuffix>{{element.detalleArticulo[0].cantidad | number: '.2' }}</span> -->
+                    </mat-form-field>
+                </td>
+                <div>
+                    <td>
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label style="color: black;">Total</mat-label>
+                            <input matInput type="text"
+                                [ngModel]="articuloCarItem.total | currency : 'USD' : 'symbol' : '1.0-0'" name="total"
+                                [errorStateMatcher]="matcher" disabled style="color: black">
+                            <mat-icon matSuffix>currency_exchange</mat-icon>
+                            <!-- <span matTextSuffix>{{element.detalleArticulo[0].total | currency }}</span> -->
+                        </mat-form-field>
+                    </td>
+                </div>
+            </tr>
+        </div>
+    </div>
+    <div *ngIf="mensajeFallido" class="alert alert-danger mt-3">
+        {{ mensajeFallido }}
+    </div>
+    <div mat-dialog-actions align="center">
+        <button mat-button (click)="cerrar()" color="warn" cdkFocusInitial>CANCELAR</button>
+        <button mat-button (click)="actualizar()" color="primary" [disabled]="disabledButton">ACTUALIZAR</button>
+    </div>
+</section>

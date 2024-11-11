@@ -1,0 +1,116 @@
+/* Estilo para la sección de contenido */
+.content {
+  padding: 2rem;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.mat-card-top {
+  width: auto;
+  height: 220px;
+  opacity: 95%;
+  background-color: white;
+}
+
+.mat-card-center {
+  margin-top: -15px;
+  position: relative;
+  width: auto;
+  height: auto;
+  overflow: auto;
+  max-height: 745px;
+  opacity: 98%;
+  background-color: aliceblue;
+}
+
+.mat-card-down {
+  margin-top: auto;
+  width: auto;
+  height: auto;
+  opacity: 95%;
+  background-color: white;
+}
+
+.form {
+  margin-left: 15px;
+  margin-right: 5px;
+}
+
+.full-width {
+  margin-top: 0.1%;
+  width: 100%;
+}
+
+
+td {
+  padding-right: 8px;
+}
+
+.loading-shade {
+  position: absolute;
+  z-index: 999;
+  display: flex;
+  margin-top: 15%;
+  margin-left: 45%;
+  margin-right: 45%;
+}
+
+mat-sidenav-container {
+  height: calc(205vh - 115vH);
+}
+
+mat-sidenav {
+  width: 230px;
+  background-color: #eee;
+  display: block;
+}
+
+.button24 {
+  width: 24px;
+  height: 24px;
+}
+
+.mat-sidenav-right {
+  width: 538px;
+  background-color: white;
+}
+
+
+.full-width-right {
+  position:fixed;
+  margin-top: -84px;
+  margin-left: 85.5%;
+  width: auto;
+}
+
+.full-width-right-down {
+  position: fixed;
+  margin-top: -14px;
+  margin-left: 85.5%;
+  width: auto;
+}
+
+.full-width-right-card-down {
+  margin-top: auto;
+  margin-left: 475px;}
+
+  .colorText {
+    color: white;
+  }
+
+  table{
+      table-layout: fixed;
+  }
+  
+  .form-input {
+    padding-right: 5px;
+  }
+
+  .buttonMatTable {
+    width: 30px;
+    height: 30px;
+  }
+
+  

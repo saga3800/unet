@@ -1,0 +1,12 @@
+.my-custom-container {
+    background-color: whitesmoke;
+}
+/* Increasing css specificity by duplicating class */
+/* Increasing the specificity is important to overwrite angular
+   own rules on the component, without it your rules do not win 
+   against angular material dialog's rules.
+*/
+.my-custom-container .mat-mdc-dialog-title.mat-mdc-dialog-title {
+    color: red;
+    text-align: center;
+}

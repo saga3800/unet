@@ -1,0 +1,103 @@
+<section class="my-custom-container">
+    <h2 mat-dialog-title align="center" style="font-family: Impact">CATALOGO ARTICULOS</h2>
+    <td></td>
+    <div mat-dialog-content>
+        <!-- <p>{{mensaje}}</p> -->
+        <div>
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Consultar Descripción</mat-label>
+                <input matInput type="text" [(ngModel)]="consultarArticulo.descripcion" name="descripcion"
+                    [formControl]="descripcionFormControl" [errorStateMatcher]="matcher"
+                    (keydown.enter)="buscarArticulo(0)">
+                <button type="button" mat-icon-button matSuffix color="basic"
+                    (click)="buscarArticulo(0)">
+                    <mat-icon matSuffix color="primary">description</mat-icon>
+                </button>
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Consultar Código Barras</mat-label>
+                <input matInput type="text" [(ngModel)]="consultarArticulo.codigoBarras" name="codigoBarras"
+                    [formControl]="codigoBarrasFormControl" [errorStateMatcher]="matcher"
+                    (keydown.enter)="buscarArticulo(1)">
+                <button type="button" mat-icon-button matSuffix color="basic"
+                    (click)="buscarArticulo(1)">
+                    <mat-icon matSuffix color="primary">view_array</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+
+        <div *ngIf="isLoadingResults" class="loading-shade">
+            <mat-progress-spinner color="primary" mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+
+        <table mat-table [dataSource]="dataSourceArticulos" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="codigo">
+                <th mat-header-cell *matHeaderCellDef> Código </th>
+                <td mat-cell *matCellDef="let articulo"> {{articulo.codigo}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="codigoBarras">
+                <th mat-header-cell *matHeaderCellDef> Codigo Barras </th>
+                <td mat-cell *matCellDef="let articulo"> {{articulo.codigoBarras}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="descripcion">
+                <th mat-header-cell *matHeaderCellDef> Descripción </th>
+                <td mat-cell *matCellDef="let articulo"> {{articulo.descripcion}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="marca">
+                <th mat-header-cell *matHeaderCellDef> Marca </th>
+                <td mat-cell *matCellDef="let articulo"> {{articulo.marca}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="referencia">
+                <th mat-header-cell *matHeaderCellDef> Referencia </th>
+                <td mat-cell *matCellDef="let articulo"> {{articulo.referencia}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="unidadMedida">
+                <th mat-header-cell *matHeaderCellDef> Unidad Medida </th>
+                <td mat-cell *matCellDef="let articulo"> {{articulo.unidadMedida}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="codigoUbicacion">
+                <th mat-header-cell *matHeaderCellDef> Codigo Ubicación </th>
+                <td mat-cell *matCellDef="let articulo"> {{articulo.codigoUbicacion}} </td>
+            </ng-container>
+            <!--
+            <ng-container matColumnDef="estadoActivo">
+              <th mat-header-cell *matHeaderCellDef> Estado Activo </th>
+              <td mat-cell *matCellDef="let articulo"> {{articulo.estadoActivo}} </td>
+            </ng-container>
+            -->
+
+            <ng-container matColumnDef="accion">
+                <th mat-header-cell *matHeaderCellDef> Acción </th>
+                <td mat-cell *matCellDef="let articulo">
+                    <button type="button" mat-icon-button color="primary" matTooltip="Descargar"
+                        (click)="seleccionar(articulo)">
+                        <mat-icon>archive</mat-icon>
+                    </button>
+            </ng-container>
+
+
+
+            <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+
+        </table>
+    </div>
+    <div *ngIf="mensajeExitoso" class="alert alert-success mt-3">
+        {{ mensajeExitoso }}
+    </div>
+    <div *ngIf="mensajeFallido" class="alert alert-danger mt-3">
+        {{ mensajeFallido }}
+    </div>
+
+    <div mat-dialog-actions align="end">
+        <button mat-button (click)="cerrar()" color="warn" cdkFocusInitial>CANCELAR</button>
+    </div>
+</section>

@@ -1,0 +1,61 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-card {
+  margin: auto;
+  width: 100%;
+  margin-top: 0.1%;
+  display: block;
+  opacity: 95%;
+}
+
+.form {
+  margin-left: 1%;
+}
+
+.full-width {
+  margin-top: 0.1%;
+  width: 100%;
+}
+
+.middle-width {
+  margin-top: 0.1%;
+  width: 95%;
+  margin-left: 20rem;
+  margin-right: 20rem;
+}
+
+td {
+  padding-right: 8px;
+}
+
+.loading-shade {
+  position: absolute;
+  display: flex;
+  margin-top: 15%;
+  margin-left: 45%;
+  margin-right: 45%;
+
+}
+
+mat-sidenav-container {
+  height: calc(205vh - 115vH);
+}
+
+mat-sidenav {
+  width: 230px;
+  background-color: #eee;
+}
+
+
+
+.colorText {
+  color: white;
+}
+
+.mat-form-field{
+  margin-top: 1.5%;
+  width: 25%;
+  margin-left: auto;
+}

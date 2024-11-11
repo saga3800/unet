@@ -1,0 +1,354 @@
+<mat-toolbar color="primary" class="mat-elevation-z6">
+
+    <button mat-icon-button matTooltip="Menu" (click)="opened=!opened">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+
+    <!--
+    <mat-form-field class="mat-form-field">
+      <mat-label>Filtrar Articulo</mat-label>
+      <mat-icon matSuffix color="primary">search</mat-icon>
+      <input matInput (keyup)="filtrar($event)" placeholder="buscar">
+    </mat-form-field>
+    -->
+
+    <span class="spacer"></span>
+    <span class="spacer"></span>
+    <span class="spacer"></span>
+
+    <button mat-fab extended disabled class="colorText">
+        REPORTES MOVIMIENTOS VENTAS
+    </button>
+    <span class="spacer"></span>
+    <span class="spacer"></span>
+    <span class="spacer"></span>
+
+    <button mat-icon-button [matMenuTriggerFor]="usuarios" matTooltip="Gestion Cuentas">
+        <mat-icon>manage_accounts</mat-icon>
+        <mat-menu #usuarios="matMenu">
+            <ng-template matMenuContent>
+                <button mat-menu-item routerLink="/registrarUsuario">Registrar</button>
+                <button mat-menu-item routerLink="/buscarUsuario">Buscar</button>
+            </ng-template>
+        </mat-menu>
+    </button>
+
+  <button mat-icon-button [matMenuTriggerFor]="config" matTooltip="Ajustes">
+    <mat-icon>settings</mat-icon>
+    <mat-menu #config="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="caja">
+        <mat-icon>all_inbox</mat-icon>
+        <span>Caja</span>
+      </button>
+    </mat-menu>   
+    <mat-menu #caja="matMenu">
+      <button mat-menu-item routerLink="/registrarCaja">Registrar</button>
+      <button mat-menu-item routerLink="/buscarCaja">Buscar</button>
+      <button *ngIf="this.tokenService.rolName" mat-menu-item routerLink="/administrarCaja">Administrar</button>
+    </mat-menu>
+  </button>
+    <button mat-icon-button matTooltip={{this.tokenService.userName}}>
+        <mat-icon>assignment_ind</mat-icon>
+    </button>
+    <button mat-icon-button routerLink="/login" matTooltip="Salir">
+        <mat-icon>logout</mat-icon>
+    </button>
+
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav [(opened)]="opened" mode="push">
+        <mat-nav-list>
+            <mat-list-item routerLink="/menu" matTooltip="Punto U" (click)="opened=!opened">
+                <mat-icon>home</mat-icon>
+            </mat-list-item>
+            <mat-list-item routerLink="/ventasProductos" [class.mat-elevation-z0]="true">
+                <mat-icon>shopping_bag</mat-icon>
+                <span>Catalogo Ventas</span>
+            </mat-list-item>
+                        <mat-list-item routerLink="/cotizacionesProductos" [class.mat-elevation-z0]="true">
+                <mat-icon>addchart</mat-icon>
+                <span>Catalogo Cotizaciones</span>
+            </mat-list-item>
+            <mat-list-item  *ngIf="this.tokenService.rolName" routerLink="/devolucionesProductos" [class.mat-elevation-z0]="true">
+                <mat-icon>assignment_return</mat-icon>
+                <span>Catalogo Devoluciones</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel [class.mat-elevation-z0]="true">
+                <mat-expansion-panel-header>
+                    <mat-icon>person</mat-icon>
+                    <span> Clientes</span>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item routerLink="/registrarCliente">
+                        <span>Registrar</span>
+                    </a>
+                    <a mat-list-item routerLink="/buscarCliente">
+                        <span>Buscar</span>
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel [class.mat-elevation-z0]="true">
+                <mat-expansion-panel-header>
+                    <mat-icon>article</mat-icon>
+                    <span> Articulos</span>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item routerLink="/registrarArticulo">
+                        <span>Registrar</span>
+                    </a>
+                    <a mat-list-item routerLink="/buscarArticulo">
+                        <span>Buscar</span>
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel [class.mat-elevation-z0]="true">
+                <mat-expansion-panel-header>
+                    <mat-icon>location_on</mat-icon>
+                    <span> Ubicaciones</span>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item routerLink="/registrarUbicacion">
+                        <span>Registrar</span>
+                    </a>
+                    <a mat-list-item routerLink="/buscarUbicacion">
+                        <span>Buscar</span>
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel [class.mat-elevation-z0]="true">
+                <mat-expansion-panel-header>
+                    <mat-icon>supervisor_account</mat-icon>
+                    <span> Proveedores</span>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item routerLink="/registrarProveedor">
+                        <span>Registrar</span>
+                    </a>
+                    <a mat-list-item routerLink="/buscarProveedor">
+                        <span>Buscar</span>
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-list-item routerLink="/comprasProductos" [class.mat-elevation-z0]="true">
+                <mat-icon>shopping_basket</mat-icon>
+                <span>Catalogo Compras</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel [class.mat-elevation-z0]="true">
+              <mat-expansion-panel-header>
+                <mat-icon>table_chart</mat-icon>
+                <span> Reportes</span>
+              </mat-expansion-panel-header>
+              <mat-nav-list>
+                <a mat-list-item routerLink="/reportesVentas">
+                  <span>Ventas</span>
+                </a>
+                <a mat-list-item routerLink="/reportesCompras">
+                  <span>Compras</span>
+                </a>
+                <a mat-list-item routerLink="/reportesArticulos">
+                  <span>Stock Articulos</span>
+                </a>
+              </mat-nav-list>
+            </mat-expansion-panel>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-card>
+            <div *ngIf="isLoadingResults" class="loading-shade">
+                <mat-progress-spinner color="primary" mode="indeterminate">
+                </mat-progress-spinner>
+            </div>
+            <div align="start">
+                <mat-form-field class="mat-form-field" appearance="outline">
+                    <mat-label style="font-size: 125%;">Rango Fecha Factura</mat-label>
+                    <mat-date-range-input 
+                    [formGroup]="fechaInicial"
+                    [rangePicker]="rangePicker"
+                    [comparisonStart]="fechaInicial.value.start"
+                    [comparisonEnd]="fechaInicial.value.end"
+                     style="font-size: 150%;">
+                        <input matStartDate placeholder="Start Date" formControlName="start" (dateInput)="addEvent('Start', $event)"
+                            [(ngModel)]="fieldStartDate">
+                        <input matEndDate placeholder="End Date" formControlName="end" (dateInput)="addEvent('End', $event)"
+                            [(ngModel)]="fieldEndDate">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #rangePicker>
+                        <mat-date-range-picker-actions>
+                            <button mat-button matDateRangePickerCancel (click)="applyClear()">Cancel</button>
+                            <button mat-raised-button color="primary" matDateRangePickerApply
+                                (click)="applyFilter()">Apply</button>
+                        </mat-date-range-picker-actions>
+                    </mat-date-range-picker>
+                </mat-form-field>
+                <div *ngIf="this.tokenService.rolName" align="end" style="margin-top: -75px">
+                    <button mat-icon-button (click)="exportTable()" matTooltip="Exportar">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="mat-elevation-z8" style="margin-top: 15px;">
+                <table mat-table [dataSource]="dataSourceVentas" matSort cdkDropList cdkDropListOrientation="horizontal"
+                    (cdkDropListDropped)="move($event)" id="ReporteVentas">
+
+                    <!-- Column -->
+                    <ng-container matColumnDef="No">
+                        <th mat-header-cell mat-sort-header style="font-family: Impact; background-color:gainsboro;"
+                            cdkDrag *matHeaderCellDef> No </th>
+                        <td mat-cell *matCellDef="let transaction; let i = index"> {{i+1}} </td>
+                        <td mat-footer-cell *matFooterCellDef> Total </td>
+                    </ng-container>
+
+                    <!-- Column -->
+                    <ng-container matColumnDef="numeroFactura">
+                        <th mat-header-cell mat-sort-header style="font-family: Impact; background-color:gainsboro;"
+                            cdkDrag *matHeaderCellDef> # Factura </th>
+                        <td mat-cell *matCellDef="let transaction"> {{transaction.numeroFactura}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <!-- Column -->
+                    <ng-container matColumnDef="fechaFactura">
+                        <th mat-header-cell mat-sort-header style="font-family: Impact; background-color:gainsboro;"
+                            cdkDrag *matHeaderCellDef> Fecha Factura </th>
+                        <td mat-cell *matCellDef="let transaction"> {{transaction.fechaFactura }} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <!-- Column -->
+                    <ng-container matColumnDef="efectivo">
+                        <th mat-header-cell mat-sort-header style="font-family: Impact; background-color:gainsboro;"
+                            cdkDrag *matHeaderCellDef> Pago Efectivo </th>
+                        <td mat-cell *matCellDef="let transaction"> {{transaction.cantidadEfectivo | currency : 'USD' :
+                            'symbol' : '1.0-0'}}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef="let transaction">{{getTotalEfectivo() | currency : 'USD'
+                            : 'symbol' : '1.0-0'}}</td>
+                    </ng-container>
+
+                    <!-- Column -->
+                    <ng-container matColumnDef="transferencia">
+                        <th mat-header-cell mat-sort-header style="font-family: Impact; background-color:gainsboro;"
+                            cdkDrag *matHeaderCellDef> Pago Transf </th>
+                        <td mat-cell *matCellDef="let transaction"> {{ transaction.cantidadTransferencia | currency :
+                            'USD' : 'symbol' : '1.0-0'}}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef="let transaction">{{ getTotalTransferencias() | currency :
+                            'USD' : 'symbol' : '1.0-0'
+                            }}</td>
+                    </ng-container>
+
+                    <!-- Column -->
+                    <ng-container matColumnDef="valorTransaccion">
+                        <th mat-header-cell mat-sort-header style="font-family: Impact; background-color:gainsboro;"
+                            cdkDrag *matHeaderCellDef> Pago Total </th>
+                        <td mat-cell *matCellDef="let transaction">{{ transaction.total | currency : 'USD' : 'symbol' :
+                            '1.0-0'}}</td>
+                        <td mat-footer-cell *matFooterCellDef="let transaction">{{ getTotalTransactiones() | currency :
+                            'USD' : 'symbol' : '1.0-0' }}
+                        </td>
+                    </ng-container>
+                    <!--[ngClass]="{'class1': transaction.tipoTransaccion === 'Venta', 'class2': transaction.tipoTransaccion === 'Compra'}"-->
+                    <!-- Column -->
+                    <ng-container matColumnDef="nombreRazonSocial">
+                        <th mat-header-cell mat-sort-header style="font-family: Impact; background-color:gainsboro;"
+                            cdkDrag *matHeaderCellDef> Nombre/RazonSocial </th>
+                        <td mat-cell *matCellDef="let transaction">{{ transaction.cliente.nombreRazonSocial}}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <!-- Column -->
+                    <ng-container matColumnDef="tipoDocumento">
+                        <th mat-header-cell mat-sort-header style="font-family: Impact; background-color:gainsboro;"
+                            cdkDrag *matHeaderCellDef> Tipo Doc </th>
+                        <td mat-cell *matCellDef="let transaction">{{ transaction.cliente.tipoDocumento}}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+
+                    <!-- Column -->
+                    <ng-container matColumnDef="numeroDocumento">
+                        <th mat-header-cell mat-sort-header style="font-family: Impact; background-color:gainsboro;"
+                            cdkDrag *matHeaderCellDef> # Documento </th>
+                        <td mat-cell *matCellDef="let transaction">{{ transaction.cliente.numeroDocumento}}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+
+                    <!-- Column -->
+                    <ng-container matColumnDef="email">
+                        <th mat-header-cell mat-sort-header style="font-family: Impact; background-color:gainsboro;"
+                            cdkDrag *matHeaderCellDef> Correo Electrónico </th>
+                        <td mat-cell *matCellDef="let transaction">{{ transaction.cliente.email}}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <!-- Column -->
+                    <ng-container matColumnDef="facturaElectronica">
+                        <th mat-header-cell mat-sort-header style="font-family: Impact; background-color:gainsboro;"
+                            cdkDrag *matHeaderCellDef> Fac Electonica </th>
+                        <td mat-cell *matCellDef="let transaction">
+                            {{transaction.facturacionElectronica}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <!-- Column -->
+                    <ng-container matColumnDef="vendedor">
+                        <th mat-header-cell mat-sort-header style="font-family: Impact; background-color:gainsboro;"
+                            cdkDrag *matHeaderCellDef> Vendedor </th>
+                        <td mat-cell *matCellDef="let transaction">
+                            {{transaction.vendedor}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="isPrinter">
+                        <th mat-header-cell mat-sort-header  style="font-family: Impact; background-color:gainsboro"
+                        cdkDrag *matHeaderCellDef>Acción</th>
+                        <td mat-cell *matCellDef="let transaction">
+                            <button type="button" mat-mini-fab matSuffix color="primary"
+                                matTooltip="Imprimir Recibo" class="buttonMatTable" (click)="printerUtilsService.connectToPrinter(true, transaction)">
+                                <mat-icon>receipt</mat-icon>
+                            </button>
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columnas;">
+                    </tr>
+                    <div *ngIf="this.tokenService.rolName">
+                    <tr mat-footer-row *matFooterRowDef="columnas; sticky: true"></tr>
+                    <!-- Row shown when there is no matching data. -->
+                    </div>
+                </table>
+                <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+                    [showFirstLastButtons]="true" [pageSizeOptions]="[20, 40, 80, 100]">
+                </mat-paginator>
+
+            </div>
+            <div *ngIf="mensajeExitoso" class="alert alert-success mt-3">
+                {{ mensajeExitoso }}
+            </div>
+
+            <div *ngIf="mensajeFallido" class="alert alert-danger mt-3">
+                {{ mensajeFallido }}
+            </div>
+
+        </mat-card>
+        <img src="../../assets/PuntoU.jpg" class="img-fluid"
+            style="position: absolute; top: 0; z-index: -100; width: auto; min-height:min-content; max-height: max-content;">
+
+    </mat-sidenav-content>
+</mat-sidenav-container>

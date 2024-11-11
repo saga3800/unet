@@ -1,0 +1,152 @@
+.spacer {
+  flex: 1 1 auto;
+} 
+
+mat-card {
+  margin: auto;
+  width: 75%;
+  display: block;
+  margin-top: 1rem;
+  opacity: 95%;
+}
+
+.form {
+  margin-left: 15px;
+  margin-right: 5px;
+}
+
+.full-width {
+  margin-top: 2%;
+  width: 100%;
+}
+
+td {
+  padding-right: 8px;
+}
+
+mat-sidenav-container {
+  height: calc(205vh - 115vH);
+  }
+
+  mat-sidenav {
+    width: 230px;
+    background-color: #eee;
+  }
+
+  .colorText {
+    color: white;
+  }
+
+  .loading-shade {
+    position: absolute;
+    z-index: 999;
+    display: flex;
+    margin-top: 15%;
+    margin-left: 45%;
+    margin-right: 45%;
+  }
+
+  .mat-form-field{
+    margin-top: 1.5%;
+    width: 25%;
+    margin-left: auto;
+  }
+
+  .mat-sidenav-right {
+    width: 538px;
+    background-color: white;
+  }
+
+  .mat-card-top {
+    margin-top: -40px;
+    width: auto;
+    height: 140px;
+    opacity: 95%;
+    background-color: white;
+  }
+
+  .mat-card-left {
+    margin-top: 1px;
+    position: absolute;
+    width: 30%;
+    height: 684px;
+    margin-left: 0;
+    opacity: 95%;
+    background-color:aliceblue;
+  }
+  .mat-card-top-center {
+    margin-top: -25px;
+    width: 70%;
+    height: 140px;
+    margin-right: 0;
+    opacity: 95%;
+    background-color: white;
+  }
+
+  
+  .mat-card-center {
+    margin-top: auto;
+    position: relative;
+    width: 70%;
+    height: auto;
+    overflow: auto;
+    max-height: 300px;
+    margin-right: 0;
+    opacity: 98%;
+    background-color: aliceblue;
+  }
+  
+  .mat-card-down {
+    margin-top: -30px;
+    width: 70%;
+    height: auto;
+    margin-right: 0;
+    opacity: 95%;
+    background-color: white;
+  }
+
+  .colorText {
+    color: white;
+  }
+
+  
+  .form-input {
+    padding-right: 5px;
+  }
+
+  .buttonMatTable {
+    width: 540px;
+    height: 60px;
+  }
+
+  .textMatTable {
+    width: 540px;
+  }
+
+  .textArea {
+    width: 150px;
+    height: 20px;
+  }
+
+  .colorRowSal {
+    color: red;
+  }
+
+  .colorRowInt {
+    color: blue;
+  }
+
+  .colorRowEnt {
+    color: black;
+  }
+
+  .textSummary {
+    margin-top: 0%;
+    width: 252px;
+  }
+  .textSummaryTotal {
+    margin-top: 0%;
+    margin-left: 120%;
+    width: 300px;
+
+  }

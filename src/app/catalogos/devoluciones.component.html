@@ -1,0 +1,535 @@
+<div *ngIf="this.tokenService.rolName">
+    <mat-toolbar class="mat-elevation-z6" style="background-color: rgb(231, 83, 128);">
+        <button type="button" mat-icon-button matTooltip="Menu" (click)="openedMenu=!openedMenu">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <!--
+    <mat-form-field class="mat-form-field" appearance="fill">
+        <mat-label>Consultar Venta</mat-label>
+        <button type="button" mat-icon-button matSuffix color="basic">
+            <mat-icon matSuffix color="primary">search</mat-icon>
+        </button>
+        <input matInput (keyup)="filtrar($event)" placeholder="Buscar">
+    </mat-form-field>
+    -->
+        <span class="spacer"></span>
+        <span class="spacer"></span>
+
+        <button type="button" mat-fab extended disabled class="colorText">
+            CATALOGO DEVOLUCIONES
+        </button>
+        <span class="spacer"></span>
+        <span class="spacer"></span>
+
+        <button type="button" mat-icon-button [matMenuTriggerFor]="usuarios" matTooltip="Gestion Cuentas">
+            <mat-icon>manage_accounts</mat-icon>
+            <mat-menu #usuarios="matMenu">
+                <ng-template matMenuContent>
+                    <button type="button" mat-menu-item routerLink="/registrarUsuario">Registrar</button>
+                    <button type="button" mat-menu-item routerLink="/buscarUsuario">Buscar</button>
+                </ng-template>
+            </mat-menu>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="config" matTooltip="Ajustes">
+            <mat-icon>settings</mat-icon>
+            <mat-menu #config="matMenu">
+                <button mat-menu-item [matMenuTriggerFor]="caja">
+                    <mat-icon>all_inbox</mat-icon>
+                    <span>Caja</span>
+                </button>
+            </mat-menu>
+            <mat-menu #caja="matMenu">
+                <button mat-menu-item routerLink="/registrarCaja">Registrar</button>
+                <button mat-menu-item routerLink="/buscarCaja">Buscar</button>
+                <button *ngIf="this.tokenService.rolName" mat-menu-item
+                    routerLink="/administrarCaja">Administrar</button>
+            </mat-menu>
+        </button>
+        <button type="button" mat-icon-button matTooltip={{this.tokenService.userName}}>
+            <mat-icon>assignment_ind</mat-icon>
+        </button>
+        <button type="button" mat-icon-button routerLink="/login" matTooltip="Salir">
+            <mat-icon>logout</mat-icon>
+        </button>
+    </mat-toolbar>
+    <mat-sidenav-container>
+        <!-- Contenido Menú a la izquierda-->
+        <mat-sidenav #sidenav1 position="start" [(opened)]="openedMenu" mode="push">
+            <mat-nav-list>
+                <mat-list-item routerLink="/menu" matTooltip="Punto U" (click)="openedMenu=!openedMenu">
+                    <mat-icon>home</mat-icon>
+                </mat-list-item>
+                <mat-list-item routerLink="/ventasProductos" [class.mat-elevation-z0]="true">
+                    <mat-icon>shopping_bag</mat-icon>
+                    <span>Catalogo Ventas</span>
+                </mat-list-item>
+                <mat-list-item routerLink="/cotizacionesProductos" [class.mat-elevation-z0]="true">
+                    <mat-icon>addchart</mat-icon>
+                    <span>Catalogo Cotizaciones</span>
+                </mat-list-item>
+                <mat-list-item *ngIf="this.tokenService.rolName" routerLink="/devolucionesProductos"
+                    [class.mat-elevation-z0]="true">
+                    <mat-icon>assignment_return</mat-icon>
+                    <span>Catalogo Devoluciones</span>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-expansion-panel [class.mat-elevation-z0]="true">
+                    <mat-expansion-panel-header>
+                        <mat-icon>person</mat-icon>
+                        <span> Clientes</span>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item routerLink="/registrarCliente">
+                            <span>Registrar</span>
+                        </a>
+                        <a mat-list-item routerLink="/buscarCliente">
+                            <span>Buscar</span>
+                        </a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+                <mat-divider></mat-divider>
+                <mat-expansion-panel [class.mat-elevation-z0]="true">
+                    <mat-expansion-panel-header>
+                        <mat-icon>article</mat-icon>
+                        <span> Articulos</span>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item routerLink="/registrarArticulo">
+                            <span>Registrar</span>
+                        </a>
+                        <a mat-list-item routerLink="/buscarArticulo">
+                            <span>Buscar</span>
+                        </a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+                <mat-divider></mat-divider>
+                <mat-expansion-panel [class.mat-elevation-z0]="true">
+                    <mat-expansion-panel-header>
+                        <mat-icon>location_on</mat-icon>
+                        <span> Ubicaciones</span>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item routerLink="/registrarUbicacion">
+                            <span>Registrar</span>
+                        </a>
+                        <a mat-list-item routerLink="/buscarUbicacion">
+                            <span>Buscar</span>
+                        </a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+                <mat-divider></mat-divider>
+                <mat-expansion-panel [class.mat-elevation-z0]="true">
+                    <mat-expansion-panel-header>
+                        <mat-icon>supervisor_account</mat-icon>
+                        <span> Proveedores</span>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item routerLink="/registrarProveedor">
+                            <span>Registrar</span>
+                        </a>
+                        <a mat-list-item routerLink="/buscarProveedor">
+                            <span>Buscar</span>
+                        </a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+                <mat-divider></mat-divider>
+                <mat-list-item routerLink="/comprasProductos" [class.mat-elevation-z0]="true">
+                    <mat-icon>shopping_basket</mat-icon>
+                    <span>Catalogo Compras</span>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-expansion-panel [class.mat-elevation-z0]="true">
+                    <mat-expansion-panel-header>
+                        <mat-icon>table_chart</mat-icon>
+                        <span> Reportes</span>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item routerLink="/reportesVentas">
+                            <span>Ventas</span>
+                        </a>
+                        <a mat-list-item routerLink="/reportesCompras">
+                            <span>Compras</span>
+                        </a>
+                        <a mat-list-item routerLink="/reportesArticulos">
+                            <span>Stock Articulos</span>
+                        </a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+
+            </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <div *ngIf="isLoadingResults" class="loading-shade">
+                <mat-progress-spinner color="primary" mode="indeterminate">
+                </mat-progress-spinner>
+            </div>
+            <!-- Contenido Consultas-->
+            <mat-card class="dev-mat-card-left-up">
+                <form class="form">
+                    <table class="full-width">
+                        <tr>
+                            <td>
+                                <span style="font-family: Impact;">Seleccionar Factura</span>
+                            </td>
+                            <mat-card-actions align="end">
+                                <button type="button" mat-mini-fab matTooltip="Registrar Articulo" color="basic"
+                                    (click)="mostrarDialogo('Seguro requieres Registrar Articulo?')" disabled>
+                                    <mat-icon>note_add</mat-icon>
+                                </button>
+                            </mat-card-actions>
+                        </tr>
+                    </table>
+                    <h1><mat-divider style="color:blueviolet; size: 2cap;"></mat-divider></h1>
+                    <table class="full-width">
+                        <tr>
+                            <td>
+                                <mat-form-field class="full-width" appearance="outline" style="margin-top: 3%;">
+                                    <mat-label>Consultar Numero Factura</mat-label>
+                                    <input matInput type="text" [(ngModel)]="nuevaBusqueda.buscarVenta"
+                                        name="buscarVenta" [formControl]="buscarVentaFormControl"
+                                        [errorStateMatcher]="matcher" (keydown.enter)="buscarFactura()" #inputCode>
+                                    <button type="button" mat-icon-button matSuffix color="basic"
+                                        [disabled]="buscarVentaFormControl.invalid" (click)="buscarFactura()">
+                                        <mat-icon matSuffix color="primary">fact_check</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                        </tr>
+                    </table>
+                </form>
+            </mat-card>
+            <!-- Contenido Tabla Consulta Productos-->
+            <mat-card class="dev-mat-card-left-down">
+                <form class="form" class="full-width">
+                    <div class="mat-elevation-z8">
+                        <table mat-table [dataSource]="dataSourceCatalogo" cellspacing="0">
+                            <ng-container matColumnDef="numeroFactura">
+                                <th style="font-family: Impact; background-color:gainsboro; width: 10%;" mat-header-cell
+                                    *matHeaderCellDef class="mat-header-cell">
+                                    # Factura </th>
+                                <td mat-cell *matCellDef="let catalogo"> {{catalogo.numeroFactura}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="fechaFactura">
+                                <th style="font-family: Impact; background-color:gainsboro; width: 12%;" mat-header-cell
+                                    *matHeaderCellDef class="mat-header-cell">
+                                    Fecha Factura </th>
+                                <td mat-cell *matCellDef="let catalogo"> {{catalogo.fechaFactura}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="efectivo">
+                                <th style="font-family: Impact; background-color:gainsboro; width: 12%;" mat-header-cell
+                                    *matHeaderCellDef> Pago Efectivo </th>
+                                <td mat-cell *matCellDef="let catalogo"> {{catalogo.cantidadEfectivo | currency : 'USD'
+                                    :
+                                    'symbol' : '1.0-0'}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="transferencia">
+                                <th style="font-family: Impact; background-color:gainsboro; width: 12%;" mat-header-cell
+                                    *matHeaderCellDef> Pago Transf </th>
+                                <td mat-cell *matCellDef="let catalogo"> {{catalogo.cantidadTransferencia | currency :
+                                    'USD'
+                                    :
+                                    'symbol' : '1.0-0'}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="total">
+                                <th style="font-family: Impact; background-color:gainsboro; width: 12%;" mat-header-cell
+                                    *matHeaderCellDef> Pago Total </th>
+                                <td mat-cell *matCellDef="let catalogo"> {{catalogo.total | currency : 'USD' :
+                                    'symbol' : '1.0-0'}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="vendedor">
+                                <th style="font-family: Impact; background-color:gainsboro; width: 12%;" mat-header-cell
+                                    *matHeaderCellDef> Vendedor </th>
+                                <td mat-cell *matCellDef="let catalogo"> {{catalogo.vendedor}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="facturaElectronica">
+                                <th style="font-family: Impact; background-color:gainsboro; width: 15%;" mat-header-cell
+                                    *matHeaderCellDef># Fact Electronica</th>
+                                <td mat-cell *matCellDef="let catalogo"> {{catalogo.numeroFacturaElectronica}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="numeroDevolucion">
+                                <th style="font-family: Impact; background-color:gainsboro; width: 15%;" mat-header-cell
+                                    *matHeaderCellDef>Numero Devolución</th>
+                                <td mat-cell *matCellDef="let catalogo"> {{catalogo.numeroDevolucion}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="accion">
+                                <th style="font-family: Impact; background-color:gainsboro; width: 10%;" mat-header-cell
+                                    *matHeaderCellDef> Acción </th>
+                                <td mat-cell *matCellDef="let element; let i = index">
+                                    <button type="button" mat-mini-fab matSuffix color="basic" matTooltip="Devolucion"
+                                        class="dev-icon24" (click)="this.cargarFactura(element)">
+                                        <mat-icon class="dev-icon24">remove_shopping_cart</mat-icon>
+                                    </button>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+                            <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+                        </table>
+                        <!--
+                <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+                    [showFirstLastButtons]="true" [pageSizeOptions]="pageSizeOptions" (page)="recargarCatalogo($event)">
+                </mat-paginator>
+                -->
+                    </div>
+                    <div *ngIf="mensajeExitoso" class="alert alert-success mt-3">
+                        {{ mensajeExitoso }}
+                    </div>
+
+
+                    <div *ngIf="mensajeFallido" class="alert alert-danger mt-3">
+                        {{ mensajeFallido }}
+                    </div>
+                </form>
+            </mat-card>
+            <!-- Contenido Registro/Resumen Venta arriba-->
+            <mat-card class="dev-mat-card-right-up">
+                <form class="form">
+                    <table class="full-width">
+                        <tr>
+                            <td>
+                                <span style="font-family: Impact;">Detalle Factura</span>
+                            </td>
+                            <mat-card-actions align="end">
+                                <button type="button" mat-mini-fab matTooltip="Registrar Cliente" color="basic"
+                                    (click)="openedCustomer=!openedCustomer" disabled>
+                                    <mat-icon>person_add</mat-icon>
+                                </button>
+                            </mat-card-actions>
+                        </tr>
+                    </table>
+                    <h1><mat-divider style="color:blueviolet; size: 2cap;"></mat-divider></h1>
+                    <table class="full-width">
+                        <tr>
+                            <td>
+                                <mat-form-field class="full-width" appearance="outline">
+                                    <mat-label style="font-weight:bold">Documento Cliente</mat-label>
+                                    <mat-icon matSuffix>contacts</mat-icon>
+                                    <input matInput style="font-weight:bold; color: rgb(53, 53, 134);" type="text"
+                                        [(ngModel)]="consultaCliente.numeroDocumento" name="numeroDocumento"
+                                        [errorStateMatcher]="matcher" disabled>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field class="full-width" appearance="outline">
+                                    <mat-label style="font-weight:bold">Nombre Cliente</mat-label>
+                                    <mat-icon matSuffix>person</mat-icon>
+                                    <input matInput style="font-weight:bold; color: rgb(53, 53, 134);" type="text"
+                                        [(ngModel)]="consultaCliente.nombreRazonSocial" name="nombreRazonSocial"
+                                        [errorStateMatcher]="matcher" disabled>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="full-width" style="margin-top: -2%;">
+                        <tr>
+                            <td>
+                                <mat-form-field class="full-width" appearance="outline">
+                                    <mat-label style="font-weight:bold">Correo Cliente</mat-label>
+                                    <mat-icon matSuffix>email</mat-icon>
+                                    <input matInput style="font-weight:bold; color: rgb(53, 53, 134);" type="text"
+                                        [(ngModel)]="consultaCliente.email" name="email" [errorStateMatcher]="matcher"
+                                        disabled>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <h1><mat-divider style="color:blueviolet; size: 2cap;margin-right: 1%;"></mat-divider></h1>
+            </mat-card>
+            <!-- Contenido Registro/Resumen Venta centro-->
+            <mat-card class="dev-mat-card-right-center" style="background-color: aliceblue;">
+                <form class="form" class="full-width">
+                    <div class="mat-elevation-z8">
+                        <table mat-table [dataSource]="dataSourceCarItem" cellspacing="0">
+                            <ng-container matColumnDef="descripcion">
+                                <th style="font-family: Impact; background-color:gainsboro; width: 25%" mat-header-cell
+                                    *matHeaderCellDef>
+                                    Descripción </th>
+                                <td mat-cell *matCellDef="let carItem">
+                                    <span *ngFor="let row of carItem.detalleArticulo">
+                                        {{row.descripcion}}
+                                    </span>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="cantidad">
+                                <th style="font-family: Impact; background-color:gainsboro; width: 18%" mat-header-cell
+                                    *matHeaderCellDef> Cantidad </th>
+                                <td mat-cell *matCellDef="let carItem; let i = index">
+                                    <span *ngFor="let row of carItem.detalleArticulo">
+                                        <div class="input-group input-group-sm mb-3" style="margin-top: 10px;">
+                                            <div class="input-group-prepend">
+                                                <button class="btn btn-danger" type="button" disabled>
+                                                    -
+                                                </button>
+                                            </div>
+                                            <!--
+                                        <div disabled *ngIf="carItem.stock < row.cantidad" type="text"
+                                            class="form-control text-center"
+                                            style="background-color: rgb(228, 125, 125);" disabled>
+                                            {{row.cantidad}}
+                                        </div>
+                                        -->
+                                            <!--
+                                        <input type="text" style="background-color: white;"
+                                            class="form-control text-center" value="{{row.cantidad}}" disabled />
+                                         #qtyRef (keyup)="changeQty(carItem, i, qtyRef.value, 'replace')" 
+                                        -->
+                                            <div type="text" class="form-control text-center" disabled>
+                                                {{row.cantidad}}
+                                            </div>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-info" type="button" disabled>
+                                                    +
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </span>
+                            </ng-container>
+                            <ng-container matColumnDef="precio">
+                                <th style="font-family: Impact; background-color:gainsboro; width: 15%" mat-header-cell
+                                    *matHeaderCellDef>Precio Venta</th>
+                                <td mat-cell *matCellDef="let carItem">
+                                    <span *ngFor="let row of carItem.detalleArticulo">
+                                        <div *ngIf="!row.mayoreo && !row.interno">
+                                            {{row.precioVenta | currency : 'USD' : 'symbol' : '1.0-0'}}
+                                        </div>
+                                        <div *ngIf="row.mayoreo">
+                                            {{this.utilsService.numeros(row.precioMayoreo) | currency : 'USD' : 'symbol'
+                                            :
+                                            '1.0-0'}}
+                                        </div>
+                                        <div *ngIf="row.interno">
+                                            {{this.utilsService.numeros(row.precioInterno) | currency : 'USD' : 'symbol'
+                                            :
+                                            '1.0-0'}}
+                                        </div>
+                                    </span>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="iva">
+                                <th style="font-family: Impact; background-color:gainsboro; width: 5%" mat-header-cell
+                                    *matHeaderCellDef> Iva </th>
+                                <td mat-cell *matCellDef="let carItem">
+                                    <!--
+                                    <span *ngFor="let row of carItem.detalleArticulo">
+                                         {{this.utilsService.percent(row.iva)}} 
+                                    </span>
+                                    -->
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="total">
+                                <th style="font-family: Impact; background-color:gainsboro; width: 15%" mat-header-cell
+                                    *matHeaderCellDef> Total </th>
+                                <td mat-cell *matCellDef="let carItem; let i = index">
+                                    <span *ngFor="let row of carItem.detalleArticulo">
+                                        {{row.total | currency : 'USD' : 'symbol' : '1.0-0' }}
+                                        <!-- {{(carItem.cantidad > 0) ? total(carItem, i) : 0 | currency}} -->
+                                    </span>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="isEdit">
+                                <th style="font-family: Impact; background-color:gainsboro; width: 15%" mat-header-cell
+                                    *matHeaderCellDef>Acción</th>
+                                <td mat-cell *matCellDef="let carItem; let i = index">
+                                    <span *ngFor="let row of carItem.detalleArticulo">
+                                        <div *ngIf="!carItem.isEdit">
+                                            <button type="button" mat-mini-fab matSuffix color="primary"
+                                                matTooltip="Editar" class="buttonMatTable" disabled>
+                                                <mat-icon>edit</mat-icon>
+                                            </button>
+                                            <button type="button" mat-mini-fab matSuffix color="warn"
+                                                matTooltip="Eliminar" class="buttonMatTable"
+                                                (click)="mostrarDialogo('Seguro requieres Eliminar Articulo?')"
+                                                disabled>
+                                                <mat-icon>delete_forever</mat-icon>
+                                            </button>
+                                        </div>
+                                        <div *ngIf="carItem.isEdit">
+                                            <button type="button" mat-mini-fab mat-small-icon-button matSuffix
+                                                color="primary" matTooltip="Guardar" class="buttonMatTable" disabled>
+                                                <mat-icon>check_circle</mat-icon>
+                                            </button>
+                                            <button type="button" mat-mini-fab mat-small-icon-button matSuffix
+                                                color="warn" matTooltip="Descartar" class="buttonMatTable" disabled>
+                                                <mat-icon>cancel</mat-icon>
+                                            </button>
+                                        </div>
+                                    </span>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="columnasCarItem"></tr>
+                            <tr mat-row *matRowDef="let row; columns: columnasCarItem;"></tr>
+                        </table>
+                        <!--
+                    <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+                        [showFirstLastButtons]="true" [pageSizeOptions]="pageSizeOptions" (page)="recargarCatalogo($event)">
+                    </mat-paginator>
+                    -->
+                    </div>
+                </form>
+            </mat-card>
+            <!-- Contenido Registro/Resumen Venta abajo-->
+            <mat-card class="dev-mat-card-right-down">
+                <form class="form">
+                    <table class="full-width">
+                        <tr>
+                            <td>
+                                <div class="input-group" style="margin-top: 1%;">
+                                    <span class="input-group-text"
+                                        style="background-color: white; width: 50%;">Subtotal</span>
+                                    <input type="text" aria-label="subtotal" class="form-control" disabled
+                                        value="{{this.operaciones.subtotalCompra | currency : 'USD' : 'symbol' : '1.0-0'}}">
+                                </div>
+                                <!--
+                            <div class="input-group">
+                                <span class="input-group-text" style="background-color: white; width: 50%">Iva</span>
+                                <input type="text" aria-label="iva" class="form-control" disabled
+                                    value="{{ 0 | currency}}">
+                            </div>
+                            -->
+                                <div class="input-group">
+                                    <span class="input-group-text"
+                                        style="background-color: white; width: 50%">Descuento</span>
+                                    <input type="text" aria-label="total" class="form-control" disabled
+                                        value="{{this.operaciones.descuentoCompra | currency : 'USD' : 'symbol' : '1.0-0'}}">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-text"
+                                        style="background-color: white; width: 50%">Total</span>
+                                    <input type="text" aria-label="total" class="form-control" disabled
+                                        value="{{(this.operaciones.subtotalCompra - this.operaciones.descuentoCompra)  | currency : 'USD' : 'symbol' : '1.0-0'}}">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <mat-card-actions>
+                        <table class="full-width">
+                            <tr>
+                                <div align="end">
+                                    <span
+                                        style="font-family: Impact; position: absolute; margin-left: -24%; margin-top: 0.5%;">No
+                                        Articulos</span>
+                                    <span
+                                        style="font-family: Impact; position: absolute; margin-left: -8%; margin-top: 0.5%;">
+                                        {{this.operaciones.totalArticulos}}
+                                    </span>
+                                    <button mat-button
+                                        style="font-family:Impact; background-color:rgba(0, 255, 85, 0.658); width: 60%"
+                                        [disabled]="(this.operaciones.subtotalCompra - this.operaciones.descuentoCompra) === 0 
+                                    || this.devolucion || (this.consultaCliente.nombreRazonSocial === '' || this.consultaCliente.numeroDocumento === '' )"
+                                        type="button" (click)="realizarDevolucion()">Devolución |
+                                        {{(this.operaciones.subtotalCompra -this.operaciones.descuentoCompra) | currency
+                                        :
+                                        'USD' : 'symbol' : '1.0-0'}}
+                                    </button>
+
+                                    <button mat-button style="background-color: gainsboro; width: 15%;" type="button"
+                                        color="warn" (click)="mostrarDialogo('Seguro requieres Cancelar?')">Cancelar
+                                    </button>
+                                </div>
+                            </tr>
+                        </table>
+                    </mat-card-actions>
+                </form>
+            </mat-card>
+            <img src="../../assets/PuntoU.jpg" class="img-fluid"
+                style="position: absolute; top: 0; z-index: -100; width: 100%; min-height:min-content; max-height: max-content;">
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

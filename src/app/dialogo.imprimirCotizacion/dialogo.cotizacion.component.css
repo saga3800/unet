@@ -1,0 +1,46 @@
+section {
+  height: 100%;
+  overflow: visible;
+}
+
+.card-body {
+  height: 100%;
+  overflow: visible;
+}
+
+.card-header {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: #cce5ff;
+  height: 90%;
+  overflow: visible;
+}
+
+
+.logo {
+  align-content: center;
+  position: absolute;
+  z-index: 999;
+  opacity: 3%;
+  display: flex;
+  height: max-content;
+  width: max-content;
+  margin-top: -10%;
+  margin-left: -30%;
+  margin-right: 0%;
+}
+
+@media print {
+  #printable {
+    position: fixed;
+    margin-top: 0%;
+    left: 0;
+    right: 0;
+    top: 0;
+  }	
+
+  #printable:after {
+    counter-increment: page;
+    content: counter(page) ' of ' counter(page);
+  }	
+}

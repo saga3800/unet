@@ -1,0 +1,689 @@
+<mat-toolbar color="primary" class="mat-elevation-z6">
+    <button type="button" mat-icon-button matTooltip="Menu" (click)="openedMenu=!openedMenu">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <!--
+    <mat-form-field class="mat-form-field" appearance="fill">
+        <mat-label>Consultar Compra</mat-label>
+        <mat-icon matSuffix color="primary">search</mat-icon>
+        <input matInput (keyup)="filtrar($event)" placeholder="Buscar">
+    </mat-form-field>
+    -->
+    <span class="spacer"></span>
+    <span class="spacer"></span>
+
+    <button type="button" mat-fab extended disabled class="colorText">
+        CATALOGO COMPRAS
+    </button>
+    <span class="spacer"></span>
+    <span class="spacer"></span>
+    <button type="button" mat-icon-button [matMenuTriggerFor]="usuarios" matTooltip="Gestion Cuentas">
+        <mat-icon>manage_accounts</mat-icon>
+        <mat-menu #usuarios="matMenu">
+            <ng-template matMenuContent>
+                <button type="button" mat-menu-item routerLink="/registrarUsuario">Registrar</button>
+                <button type="button" mat-menu-item routerLink="/buscarUsuario">Buscar</button>
+            </ng-template>
+        </mat-menu>
+    </button>
+  <button mat-icon-button [matMenuTriggerFor]="config" matTooltip="Ajustes">
+    <mat-icon>settings</mat-icon>
+    <mat-menu #config="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="caja">
+        <mat-icon>all_inbox</mat-icon>
+        <span>Caja</span>
+      </button>
+    </mat-menu>   
+    <mat-menu #caja="matMenu">
+      <button mat-menu-item routerLink="/registrarCaja">Registrar</button>
+      <button mat-menu-item routerLink="/buscarCaja">Buscar</button>
+      <button *ngIf="this.tokenService.rolName" mat-menu-item routerLink="/administrarCaja">Administrar</button>
+    </mat-menu>
+  </button>
+    <button type="button" mat-icon-button matTooltip={{this.tokenService.userName}}>
+        <mat-icon>assignment_ind</mat-icon>
+    </button>
+    <button type="button" mat-icon-button routerLink="/login" matTooltip="Salir">
+        <mat-icon>logout</mat-icon>
+    </button>
+</mat-toolbar>
+<mat-sidenav-container>
+    <!-- Contenido Menu Izquierda-->
+    <mat-sidenav #sidenav1 position="start" [(opened)]="openedMenu" mode="push">
+        <mat-nav-list>
+            <mat-list-item routerLink="/menu" matTooltip="Punto U" (click)="openedMenu=!openedMenu">
+                <mat-icon>home</mat-icon>
+            </mat-list-item>
+            <mat-list-item routerLink="/ventasProductos" [class.mat-elevation-z0]="true">
+                <mat-icon>shopping_bag</mat-icon>
+                <span>Catalogo Ventas</span>
+            </mat-list-item>
+                        <mat-list-item routerLink="/cotizacionesProductos" [class.mat-elevation-z0]="true">
+                <mat-icon>addchart</mat-icon>
+                <span>Catalogo Cotizaciones</span>
+            </mat-list-item>
+            <mat-list-item  *ngIf="this.tokenService.rolName" routerLink="/devolucionesProductos" [class.mat-elevation-z0]="true">
+                <mat-icon>assignment_return</mat-icon>
+                <span>Catalogo Devoluciones</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel [class.mat-elevation-z0]="true">
+                <mat-expansion-panel-header>
+                    <mat-icon>person</mat-icon>
+                    <span> Clientes</span>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item routerLink="/registrarCliente">
+                        <span>Registrar</span>
+                    </a>
+                    <a mat-list-item routerLink="/buscarCliente">
+                        <span>Buscar</span>
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel [class.mat-elevation-z0]="true">
+                <mat-expansion-panel-header>
+                    <mat-icon>article</mat-icon>
+                    <span> Articulos</span>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item routerLink="/registrarArticulo">
+                        <span>Registrar</span>
+                    </a>
+                    <a mat-list-item routerLink="/buscarArticulo">
+                        <span>Buscar</span>
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel [class.mat-elevation-z0]="true">
+                <mat-expansion-panel-header>
+                    <mat-icon>location_on</mat-icon>
+                    <span> Ubicaciones</span>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item routerLink="/registrarUbicacion">
+                        <span>Registrar</span>
+                    </a>
+                    <a mat-list-item routerLink="/buscarUbicacion">
+                        <span>Buscar</span>
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel [class.mat-elevation-z0]="true">
+                <mat-expansion-panel-header>
+                    <mat-icon>supervisor_account</mat-icon>
+                    <span> Proveedores</span>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item routerLink="/registrarProveedor">
+                        <span>Registrar</span>
+                    </a>
+                    <a mat-list-item routerLink="/buscarProveedor">
+                        <span>Buscar</span>
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-list-item routerLink="/comprasProductos" [class.mat-elevation-z0]="true">
+                <mat-icon>shopping_basket</mat-icon>
+                <span>Catalogo Compras</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel [class.mat-elevation-z0]="true">
+              <mat-expansion-panel-header>
+                <mat-icon>table_chart</mat-icon>
+                <span> Reportes</span>
+              </mat-expansion-panel-header>
+              <mat-nav-list>
+                <a mat-list-item routerLink="/reportesVentas">
+                  <span>Ventas</span>
+                </a>
+                <a mat-list-item routerLink="/reportesCompras">
+                  <span>Compras</span>
+                </a>
+                <a mat-list-item routerLink="/reportesArticulos">
+                  <span>Stock Articulos</span>
+                </a>
+              </mat-nav-list>
+            </mat-expansion-panel>
+        </mat-nav-list>
+    </mat-sidenav>
+    <!-- Contenido Registrar Articulo-->
+    <mat-sidenav #sidenav2 position="end" [(opened)]="openedArticle" mode="over" class="mat-sidenav-right">
+        <form class="form">
+            <table class="full-width" cellspacing="0">
+                <p></p>
+                <tr>
+                    <span style="font-family: Impact">Registrar Articulo</span>
+                </tr>
+            </table>
+            <p></p>
+            <mat-divider style="color:blueviolet; size: 2cap;"></mat-divider>
+            <td></td>
+            <table class="full-width" cellspacing="0">
+                <tr>
+                    <td>
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Codigo Barras</mat-label>
+                            <mat-icon matSuffix>code</mat-icon>
+                            <input matInput [(ngModel)]="nuevoArticulo.codigoBarras" id="codigoBarras"
+                                name="codigoBarras">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Descripción</mat-label>
+                            <mat-icon matSuffix>description</mat-icon>
+                            <input matInput [(ngModel)]="nuevoArticulo.descripcion" id="descripcion" name="descripcion"
+                                [formControl]="descripcionFormControl" [errorStateMatcher]="matcher">
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+
+
+            <table class="full-width" cellspacing="0">
+                <tr>
+                    <td>
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Marca</mat-label>
+                            <mat-icon matSuffix>label_important</mat-icon>
+                            <input matInput [(ngModel)]="nuevoArticulo.marca" id="marca" name="marca"
+                                [formControl]="marcaFormControl" [errorStateMatcher]="matcher">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Referencia</mat-label>
+                            <mat-icon matSuffix>label</mat-icon>
+                            <input matInput [(ngModel)]="nuevoArticulo.referencia" id="referencia" name="referencia"
+                                [formControl]="referenciaFormControl" [errorStateMatcher]="matcher">
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+            <table class="full-width" cellspacing="0">
+                <tr>
+                    <td>
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Unidad Medida</mat-label>
+                            <mat-icon matSuffix>list</mat-icon>
+                            <mat-select [(ngModel)]="nuevoArticulo.unidadMedida" name="unidadMedida"
+                                [formControl]="unidadMedidaFormControl" [errorStateMatcher]="matcher">
+                                <mat-option disabled selected>Selecciona una opcíon</mat-option>
+                                <mat-option value="UND">UNIDAD</mat-option>
+                                <mat-option value="SER">SERVICIO</mat-option>
+                                <mat-option value="CEN">CENTIMETRO</mat-option>
+                                <mat-option value="RES">RESMA</mat-option>
+                                <mat-option value="CAJ">CAJA</mat-option>
+                                <mat-option value="ROL">ROLLO</mat-option>
+                                <mat-option value="MET">METRO</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+
+                    <td>
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Ubicación</mat-label>
+                            <mat-icon matSuffix>list</mat-icon>
+                            <mat-select [(ngModel)]="nuevoArticulo.codigoUbicacion" name="codigoUbicacion"
+                                [formControl]="codigoUbicacionFormControl" [errorStateMatcher]="matcher">
+                                <mat-option disabled selected>Selecciona una opcíon</mat-option>
+                                <mat-option *ngFor="let ubicacion of dataSourceubicaciones" [value]="ubicacion.codigo">
+                                    {{ ubicacion.codigo }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+            <div *ngIf="mensajeExitosoArticulo" class="alert alert-success mt-3">
+                {{ mensajeExitoso }}
+            </div>
+            <div *ngIf="mensajeFallidoArticulo" class="alert alert-danger mt-3">
+                {{ mensajeFallido }}
+            </div>
+            <div align="end">
+                <button type="button" mat-icon-button matTooltip="Guardar"
+                    [disabled]="descripcionFormControl.invalid || marcaFormControl.invalid || referenciaFormControl.invalid || unidadMedidaFormControl.invalid || codigoUbicacionFormControl.invalid"
+                    (click)="crearArticulo()">
+                    <mat-icon>save</mat-icon>
+                </button>
+                <button type="button" mat-icon-button matTooltip="Cancelar"
+                    (click)="openedArticle=false; setArticulo()">
+                    <mat-icon>cancel_presentation</mat-icon>
+                </button>
+            </div>
+        </form>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div *ngIf="isLoadingResults" class="loading-shade">
+            <mat-progress-spinner color="primary" mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+        <!-- Contenido Registrar Compra-->
+        <mat-card class="mat-card-top">
+            <form class="form">
+                <table class="full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <span style="font-family: Impact">Registrar Compra</span>
+                        </td>
+                        <mat-card-actions align="end">
+                            <button type="button" mat-mini-fab matTooltip="Registrar Proveedor" color="basic"
+                                (click)="mostrarDialogo('Seguro requieres Registrar Proveedor?', 1, '', 0)">
+                                <mat-icon>group_add</mat-icon>
+                            </button>
+                        </mat-card-actions>
+                    </tr>
+                </table>
+                <mat-divider style="color:blueviolet; size: 2cap;"></mat-divider>
+                <table class="full-width" cellspacing="0" style="margin-top: 10px;">
+                    <tr>
+                        <div align="start">
+                            <td>
+                                <mat-form-field class="full-width" appearance="outline">
+                                    <mat-label>Documento Proveedor</mat-label>
+                                    <input matInput type="text" [(ngModel)]="nuevoProveedor.numeroDocumento"
+                                        id="numeroDocumento" name="numeroDocumento"
+                                        [formControl]="numeroDocumentoFormControl" [errorStateMatcher]="matcher">
+                                    <button type="button" mat-icon-button matSuffix color="basic"
+                                        [disabled]="numeroDocumentoFormControl.invalid" (click)="buscarProveedor()">
+                                        <mat-icon matSuffix color="primary">contacts</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                            </td>
+                            <td><mat-form-field class="full-width" style="width: 200px;" appearance="outline">
+                                    <mat-label style="font-weight:bold">Tipo Documento</mat-label>
+                                    <mat-icon matSuffix>list</mat-icon>
+                                    <input matInput style="font-weight:bold; color: rgb(53, 53, 134);" type="text"
+                                        [(ngModel)]="nuevoProveedor.tipoDocumento" id="tipoDocumento"
+                                        name="tipoDocumento" [errorStateMatcher]="matcher" disabled>
+                                </mat-form-field></td>
+                            <td><mat-form-field class="full-width" style="width: 360px;" appearance="outline">
+                                    <mat-label style="font-weight:bold">Nombre Proveedor</mat-label>
+                                    <mat-icon matSuffix>supervisor_account</mat-icon>
+                                    <input matInput style="font-weight:bold; color: rgb(53, 53, 134);" type="text"
+                                        [(ngModel)]="nuevoProveedor.nombreRazonSocial" id="nombreRazonSocial"
+                                        name="nombreRazonSocial" [errorStateMatcher]="matcher" disabled>
+                                </mat-form-field></td>
+                        </div>
+                        <td>
+                            <div align="end">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Numero Factura</mat-label>
+                                    <mat-icon matSuffix>account_balance_wallet</mat-icon>
+                                    <input matInput [(ngModel)]="nuevaCompra.numeroFactura" id="numeroFactura"
+                                        name="numeroFactura" [formControl]="numeroFacturaFormControl"
+                                        [errorStateMatcher]="matcher" type="text">
+                                </mat-form-field>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <table class="full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <div align="end">
+                                <mat-form-field style="margin-top: -1rem;" appearance="outline">
+                                    <mat-label>Fecha</mat-label>
+                                    <mat-icon matSuffix>today</mat-icon>
+                                    <input matInput [(ngModel)]="nuevaCompra.fechaFactura" id="fechaFactura"
+                                        name="fechaFactura" [formControl]="fechaFacturaFormControl"
+                                        [errorStateMatcher]="matcher" type="date">
+                                </mat-form-field>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </mat-card>
+        <!-- Contenido Ingresar Articulos a la compra-->
+        <mat-card class="mat-card-center">
+            <div class="mat-elevation-z8">
+                <table mat-table #myTable [dataSource]="dataSourceCargarArticulos" cellspacing="0">
+                    <ng-container matColumnDef="No">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 0%; " mat-header-cell
+                            *matHeaderCellDef>
+                            No </th>
+                        <td mat-cell *matCellDef="let articulos;let i = index"> {{i+1}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="descripcion">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 12%; " mat-header-cell
+                            *matHeaderCellDef>
+                            Descripción </th>
+                        <td mat-cell *matCellDef="let articulos"> {{articulos.descripcion}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="referencia">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 8%; " mat-header-cell
+                            *matHeaderCellDef>
+                            Referencia </th>
+                        <td mat-cell *matCellDef="let articulos">
+                            {{articulos.referencia}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="marca">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 8%; " mat-header-cell
+                            *matHeaderCellDef>
+                            Marca </th>
+                        <td mat-cell *matCellDef="let articulos"> {{articulos.marca}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="cantidad">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 7%; " mat-header-cell
+                            *matHeaderCellDef>
+                            Cantidad</th>
+                        <td mat-cell *matCellDef="let articulos">
+                            <span *ngFor="let row of articulos.precios">
+                                <div *ngIf="!articulos.isEdit">
+                                    {{row.cantidad}}
+                                </div>
+                                <div *ngIf="articulos.isEdit">
+                                    <input class="input-group input-group-sm" id="cantidad" type="number"
+                                        name="cantidad" [errorStateMatcher]="matcher" matInput
+                                        (ngModel)="reset.cantidad" (ngModelChange)="row.cantidad = $event" required>
+                                </div>
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="valorUnitario">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 7%; " mat-header-cell
+                            *matHeaderCellDef>
+                            Valor Unitario</th>
+                        <td mat-cell *matCellDef="let articulos; let i = index">
+                            <span *ngFor="let row of articulos.precios">
+                                <div *ngIf="!articulos.isEdit">
+                                    {{ this.utilsService.numeros(row.valorUnitario) | currency : 'USD' : 'symbol' : '1.0-0'}}
+                                </div>
+                                <div *ngIf="articulos.isEdit">
+                                    <input class="input-group input-group-sm" id="valorUnitario" type="number"
+                                        name="valorUnitario" [errorStateMatcher]="matcher" matInput
+                                        [(ngModel)]="row.valorUnitario" (ngModelChange)="row.valorUnitario = $event"
+                                        required>
+                                </div>
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="descuento">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 5%; " mat-header-cell
+                            *matHeaderCellDef>
+                            Desc %</th>
+                        <td mat-cell *matCellDef="let articulos">
+                            <span *ngFor="let row of articulos.precios">
+                                <div *ngIf="!articulos.isEdit">
+                                    {{this.utilsService.percent(row.descuentoUnitario)}}
+                                </div>
+                                <div *ngIf="articulos.isEdit">
+                                    <input class="input-group input-group-sm" id="descuento" type="number"
+                                        name="descuento" [errorStateMatcher]="matcher" matInput
+                                        [(ngModel)]="row.descuentoUnitario" (ngModelChange)="row.descuentoUnitario = $event" required>
+                                </div>
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="subtotal">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 7%; " mat-header-cell
+                            *matHeaderCellDef>
+                            Subtotal</th>
+                        <td mat-cell *matCellDef="let articulos, let i = index">
+                            <span *ngFor="let row of articulos.precios">
+                                {{row.subtotalUnitario | currency : 'USD' : 'symbol' : '1.0-0'}}
+                                {{subtotal(articulos.precios, i)}}
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="impuesto">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 7%; " mat-header-cell
+                            *matHeaderCellDef>
+                            Iva %</th>
+                        <td mat-cell *matCellDef="let articulos; let i = index">
+                            <span *ngFor="let row of articulos.precios">
+                                <div *ngIf="!articulos.isEdit">
+                                    {{this.utilsService.percent(row.impuestoUnitario)}}
+                                </div>
+                                <div *ngIf="articulos.isEdit">
+                                    <div class="input-group input-group-sm">
+                                        <select class="custom-select" id="impuesto" type="text" name="impuesto"
+                                            matInput [(ngModel)]="row.impuestoUnitario" (change)="this.unitarioIvaIncluido(articulos.precios, i)">
+                                            <option value="19">IVA 19%</option>
+                                            <option value="0">N/A 0%</option>
+                                            <option value="019">INC 19%</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="total">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 9%; " mat-header-cell
+                            *matHeaderCellDef>
+                            Total</th>
+                        <td mat-cell *matCellDef="let articulos; let i = index">
+                            <span *ngFor="let row of articulos.precios">
+                                {{row.total | currency : 'USD' : 'symbol' : '1.0-0'}}
+                                {{total(articulos.precios, i)}}
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="precioVenta">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 7%; " mat-header-cell
+                            *matHeaderCellDef>Precio Venta</th>
+                        <td mat-cell *matCellDef="let articulos">
+                            <span *ngFor="let row of articulos.precios">
+                                <div *ngIf="!articulos.isEdit">
+                                    {{utilsService.numeros(row.precioVenta) | currency : 'USD' : 'symbol' : '1.0-0'}}
+                                </div>
+                                <div *ngIf="articulos.isEdit">
+                                    <input class="input-group input-group-sm" id="precioVenta" type="number"
+                                        name="precioVenta" [errorStateMatcher]="matcher" matInput
+                                        [(ngModel)]="row.precioVenta" (ngModelChange)="row.precioVenta = $event"
+                                        required>
+                                </div>
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="precioMayoreo">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 7%; " mat-header-cell
+                            *matHeaderCellDef>Precio Mayoreo</th>
+                        <td mat-cell *matCellDef="let articulos">
+                            <span *ngFor="let row of articulos.precios">
+                                <div *ngIf="!articulos.isEdit">
+                                    {{utilsService.numeros(row.precioMayoreo) | currency : 'USD' : 'symbol' : '1.0-0'}}
+                                </div>
+                                <div *ngIf="articulos.isEdit">
+                                    <input class="input-group input-group-sm" id="precioMayoreo" type="number"
+                                        name="precioMayoreo" [errorStateMatcher]="matcher" matInput
+                                        [(ngModel)]="row.precioMayoreo" (ngModelChange)="row.precioMayoreo = $event"
+                                        required>
+                                </div>
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="precioInterno">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 7%; " mat-header-cell
+                            *matHeaderCellDef>Precio Interno</th>
+                        <td mat-cell *matCellDef="let articulos; let i = index">
+                            <!--
+                            <span *ngFor="let row of articulos.precios">
+                                <div *ngIf="!articulos.isEdit">
+                                    {{utilsService.numeros(row.precioInterno) | currency : 'USD' : 'symbol' : '1.0-0'}}
+                                </div>
+                                <div *ngIf="articulos.isEdit">
+                                    <input class="input-group input-group-sm" id="precioInterno" type="number"
+                                        name="precioInterno" [errorStateMatcher]="matcher" matInput
+                                        [(ngModel)]="row.precioInterno" (ngModelChange)="row.precioInterno = $event"
+                                        required>
+                                </div>
+                            </span>
+                            -->
+                            <span *ngFor="let row of articulos.precios">
+                                {{row.precioInterno | currency : 'USD' : 'symbol' : '1.0-0'}}
+                                {{interno(articulos.precios, i)}}
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="isEdit">
+                        <th style="font-family: Impact; background-color:gainsboro ; width: 30%;" mat-header-cell
+                            *matHeaderCellDef>
+                            Accion</th>
+                        <td mat-cell *matCellDef="let articulos; let i = index">
+                            <span *ngFor="let row of articulos.precios">
+                                <div *ngIf="!articulos.isEdit">
+                                    <button type="button" mat-mini-fab matSuffix color="primary" matTooltip="Editar"
+                                        class="buttonMatTable" (click)="editandoArticuloStorage(articulos, i)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button type="button" mat-mini-fab matSuffix color="warn" matTooltip="Eliminar"
+                                        class="buttonMatTable"
+                                        (click)="mostrarDialogo('Seguro requieres Eliminar Articulo?', 3, articulos, i)">
+                                        <mat-icon>delete_forever</mat-icon>
+                                    </button>
+                                </div>
+                                <div *ngIf="articulos.isEdit">
+                                    <button type="button" mat-mini-fab mat-small-icon-button matSuffix color="primary"
+                                        matTooltip="Guardar" class="buttonMatTable"
+                                        (click)="salvarEdicionArticuloStorage(articulos, i)">
+                                        <mat-icon>check_circle</mat-icon>
+                                    </button>
+                                    <button type="button" mat-mini-fab mat-small-icon-button matSuffix color="warn"
+                                        matTooltip="Descartar" class="buttonMatTable"
+                                        (click)="cancelarCambios(articulos, i)">
+                                        <mat-icon>cancel</mat-icon>
+                                    </button>
+                                </div>
+                            </span>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+                </table>
+            </div>
+            <form class="form">
+                <p></p>
+                <div align="start">
+                    <span style="color: blue;margin-top: 0.5%;position: absolute;">Agregar
+                        Producto</span>
+                </div>
+                <div>
+                    <button type="button" mat-mini-fab matSuffix class="button24" color="primary"
+                        style="margin-top: 0.5%; margin-left:130px; position: absolute;"
+                        [disabled]="numeroFacturaFormControl.invalid || numeroDocumentoFormControl.invalid || fechaFacturaFormControl.invalid"
+                        (click)="mostrarArticuloDialogo()">
+                        <mat-icon class="icon24" style="position: absolute;">add</mat-icon>
+                    </button>
+                </div>
+                <div>
+                    <span style="color:black;margin-top: 0.5%;position: absolute; margin-left: 45%;">No
+                        Articulos</span>
+                    <span class="spacer"></span>
+                    <span
+                        style="color: black;margin-top: 0.5%;position: absolute; margin-left: 55%; font-family: Impact">{{operaciones.cantidadArticulos}}</span>
+                </div>
+                <div>
+                    <mat-card-actions align="end">
+                        <button type="button" mat-mini-fab matSuffix color="basic" matTooltip="Registrar Articulo"
+                            style="margin-top: -1%;" (click)="openedArticle=!openedArticle; cargarUbicaciones()">
+                            <mat-icon class="icon24" style="position: absolute;">note_add</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </div>
+            </form>
+        </mat-card>
+        <!-- Contenido resumen de la compra-->
+        <mat-card class="mat-card-down">
+            <form class="form">
+                <table class="full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <span style="font-family: Impact">Resumen Compra</span>
+                        </td>
+                        <mat-card-actions align="end">
+                            <button type="button" mat-mini-fab matTooltip="Imprimir" color="basic">
+                                <mat-icon>print</mat-icon>
+                            </button>
+                        </mat-card-actions>
+                    </tr>
+                </table>
+                <mat-divider class="mat-elevation-z6" style="color:blueviolet; size: 2cap;"></mat-divider>
+                <td></td>
+                <table class="full-width" cellspacing="0">
+                    <tr>
+                        <div align="start">
+                            <td>
+                                <mat-form-field class="full-width" appearance="outline" cellspacing="0">
+                                    <mat-label style="font-weight:bold">Subtotal(base)</mat-label>
+                                    <mat-icon matSuffix>summarize</mat-icon>
+                                    <input matInput [(ngModel)]="nuevaCompra.subtotal" id="subtotal" name="subtotal"
+                                        [errorStateMatcher]="matcher" type="number" disabled>
+                                    <span matTextSuffix>{{ this.operaciones.subtotalCompra | currency : 'USD' : 'symbol' : '1.0-0'}}</span>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field class="full-width" appearance="outline" cellspacing="0">
+                                    <mat-label style="font-weight:bold">Total Descuento</mat-label>
+                                    <mat-icon matSuffix>savings</mat-icon>
+                                    <input matInput [(ngModel)]="nuevaCompra.descuento" id="descuento" name="descuento"
+                                        [errorStateMatcher]="matcher" type="number" matInput
+                                        [(ngModel)]="nuevaCompra.descuento" disabled>
+                                    <span matTextSuffix>{{this.operaciones.descuentoCompra| currency : 'USD' : 'symbol' : '1.0-0'}}</span>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field class="full-width" appearance="outline" cellspacing="0">
+                                    <mat-label style="font-weight:bold">Total Impuesto</mat-label>
+                                    <mat-icon style="font-weight:bolder;" matSuffix>gavel</mat-icon>
+                                    <input matInput [(ngModel)]="nuevaCompra.impuesto" id="impuesto" name="impuesto"
+                                        [errorStateMatcher]="matcher" type="number" disabled>
+                                    <span matTextSuffix>{{this.operaciones.impuestoCompra| currency : 'USD' : 'symbol' : '1.0-0'}}</span>
+                                </mat-form-field>
+                            </td>
+                        </div>
+                        <td>
+                            <div align="end">
+                                <mat-form-field class="full-width" style="width: 40%;" appearance="outline" cellspacing="0">
+                                    <mat-label style="font-weight:bolder; color: rgb(39, 39, 110);">Total
+                                        Factura</mat-label>
+                                    <mat-icon matSuffix>monetization_on</mat-icon>
+                                    <input matInput [(ngModel)]="nuevaCompra.total" id="total" name="total"
+                                        [errorStateMatcher]="matcher" type="number" disabled placeholder="0">
+                                    <span matTextSuffix>{{this.operaciones.totalCompra| currency : 'USD' : 'symbol' : '1.0-0'}}</span>
+                                </mat-form-field>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <table class="full-width" cellspacing="0">
+                    <mat-form-field class="full-width" style=" width: 880px" appearance="outline">
+                        <mat-label style="font-weight:bold">Observaciones</mat-label>
+                        <mat-icon matSuffix>speaker_notes</mat-icon>
+                        <textarea matInput [(ngModel)]="nuevaCompra.observaciones" id="observaciones"
+                            name="observaciones" [errorStateMatcher]="matcher"></textarea>
+                    </mat-form-field>
+                    <td>
+                        <mat-card-actions align="end">
+                            <button type="button" mat-fab color="basic" matTooltip="Guardar Compra"
+                                [disabled]="this.operaciones.totalCompra === 0"
+                                (click)="guardarCompra()">
+                                <mat-icon>save</mat-icon>
+                            </button>
+                    <td></td>
+                    <button type="button" mat-fab color="warn" matTooltip="Cancelar Compra"
+                        (click)="mostrarDialogo('Seguro requieres Cancelar?', 2, '', 0)">
+                        <mat-icon>cancel_presentation</mat-icon>
+                    </button>
+                    </mat-card-actions>
+                    </td>
+                </table>
+            </form>
+            <div *ngIf="mensajeExitoso" class="alert alert-success mt-3">
+                {{ mensajeExitoso }}
+            </div>
+            <div *ngIf="mensajeFallido" class="alert alert-danger mt-3">
+                {{ mensajeFallido }}
+            </div>
+        </mat-card>
+        <img src="../../assets/PuntoU.jpg" class="img-fluid"
+            style="position: absolute; top: 0; z-index: -100; width: 100%; min-height:min-content; max-height: max-content;">
+    </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,114 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-card {
+  margin: auto;
+  width: 100%;
+  margin-top: 0.1%;
+  display: block;
+  opacity: 95%;
+  font-size: small;
+}
+
+td {
+  padding-right: 8px;
+}
+
+.loading-shade {
+  position: absolute;
+  display: flex;
+  margin-top: 15%;
+  margin-left: 45%;
+  margin-right: 45%;
+
+}
+
+mat-sidenav-container {
+  height: calc(205vh - 115vH);
+}
+
+mat-sidenav {
+  width: 230px;
+  background-color: #eee;
+}
+
+.mat-column-No {
+  width: 20px;
+  border-right: 1px solid currentColor;
+  padding-right: 24px;
+  text-align: center;
+}
+
+
+.mat-column-efectivo {
+  width: 10%;
+  border-right: 1px solid currentColor;
+  border-left: 1px solid currentColor;
+  padding-right: auto;
+}
+
+.mat-column-transferencia {
+  width: 10%;
+  border-right: 1px solid currentColor;
+  border-left: 1px solid currentColor;
+  padding-right: auto;
+}
+
+.mat-column-valorTransaccion {
+  width: 10%;
+  border-right: 1px solid currentColor;
+  border-left: 1px solid currentColor;
+  padding-right: auto;
+}
+
+.colorText {
+  color: white;
+}
+
+.class1 {
+  font: optional;
+  color: black;
+}
+
+.class2 {
+  font-weight: bold;
+}
+
+.mat-mdc-table-sticky {
+  font-weight: bold;
+  border-block: 1px solid #554f4f;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+  cursor: pointer;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: currentColor;
+}
+
+.mat-form-field{
+  margin-top: 0.3%;
+  margin-left: 5%;
+  width: 30%;
+}
+
+.full-width {
+  margin-top: 0.1%;
+  width: 100%;
+}
+
+.button24 {
+  width: 30px;
+  height: 30px;
+}
+
+.buttonMatTable {
+  width: 30px;
+  height: 30px;
+}
+
+.icon24 {
+  color: blue;
+}

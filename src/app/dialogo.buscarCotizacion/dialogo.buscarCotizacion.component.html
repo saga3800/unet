@@ -1,0 +1,82 @@
+<section class="my-custom-container">
+    <h2 mat-dialog-title align="center" style="font-family: Impact">CATALOGO COTIZACIONES</h2>
+    <td></td>
+    <div mat-dialog-content>
+        <!-- <p>{{mensaje}}</p> -->
+        <div>
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Consultar Cotización</mat-label>
+                <input matInput type="text" [(ngModel)]="consultar.cotizacionFactura" name="cotizacionFactura"
+                    [formControl]="cotizacionFacturaFormControl" [errorStateMatcher]="matcher"
+                    (keydown.enter)="buscarCotizacion()">
+                <button type="button" mat-icon-button matSuffix color="basic"
+                    (click)="buscarCotizacion()">
+                    <mat-icon matSuffix color="primary">description</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <div *ngIf="isLoadingResults" class="loading-shade">
+            <mat-progress-spinner color="primary" mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+
+        <table mat-table [dataSource]="dataSourceCotizacion" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="cotizacion">
+                <th mat-header-cell *matHeaderCellDef> # Cotización </th>
+                <td mat-cell *matCellDef="let cotizacion"> {{cotizacion.numeroCotizacion}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="subtotal">
+                <th mat-header-cell *matHeaderCellDef> Subtotal </th>
+                <td mat-cell *matCellDef="let cotizacion"> {{cotizacion.subtotal | currency : 'USD' : 'symbol' : '1.0-0'
+                    }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="descuento">
+                <th mat-header-cell *matHeaderCellDef> Descuento </th>
+                <td mat-cell *matCellDef="let cotizacion"> {{cotizacion.descuento | currency : 'USD' : 'symbol' :
+                    '1.0-0' }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef> Total </th>
+                <td mat-cell *matCellDef="let cotizacion"> {{cotizacion.total | currency : 'USD' : 'symbol' : '1.0-0' }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cliente">
+                <th mat-header-cell *matHeaderCellDef> Cliente </th>
+                <td mat-cell *matCellDef="let cotizacion"> {{cotizacion.cliente.nombreRazonSocial}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="usuario">
+                <th mat-header-cell *matHeaderCellDef> Usuario </th>
+                <td mat-cell *matCellDef="let cotizacion"> {{cotizacion.usuario}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="accion">
+                <th mat-header-cell *matHeaderCellDef> Acción </th>
+                <td mat-cell *matCellDef="let cotizacion">
+                    <button type="button" mat-icon-button color="primary" matTooltip="Descargar"
+                        (click)="seleccionar(cotizacion)">
+                        <mat-icon>archive</mat-icon>
+                    </button>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+
+        </table>
+    </div>
+    <div *ngIf="mensajeExitoso" class="alert alert-success mt-3">
+        {{ mensajeExitoso }}
+    </div>
+    <div *ngIf="mensajeFallido" class="alert alert-danger mt-3">
+        {{ mensajeFallido }}
+    </div>
+
+    <div mat-dialog-actions align="end">
+        <button mat-button (click)="cerrar()" color="warn" cdkFocusInitial>CANCELAR</button>
+    </div>
+</section>

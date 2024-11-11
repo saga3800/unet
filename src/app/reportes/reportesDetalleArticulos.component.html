@@ -1,0 +1,268 @@
+<mat-toolbar color="primary" class="mat-elevation-z6">
+
+    <button mat-icon-button matTooltip="Menu" (click)="opened=!opened">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+
+    <!--
+    <mat-form-field class="mat-form-field">
+      <mat-label>Filtrar Articulo</mat-label>
+      <mat-icon matSuffix color="primary">search</mat-icon>
+      <input matInput (keyup)="filtrar($event)" placeholder="buscar">
+    </mat-form-field>
+    -->
+
+    <span class="spacer"></span>
+    <span class="spacer"></span>
+    <span class="spacer"></span>
+
+    <button mat-fab extended disabled class="colorText">
+        REPORTES INVENTARIO ARTICULOS
+    </button>
+    <span class="spacer"></span>
+    <span class="spacer"></span>
+    <span class="spacer"></span>
+
+    <button mat-icon-button [matMenuTriggerFor]="usuarios" matTooltip="Gestion Cuentas">
+        <mat-icon>manage_accounts</mat-icon>
+        <mat-menu #usuarios="matMenu">
+            <ng-template matMenuContent>
+                <button mat-menu-item routerLink="/registrarUsuario">Registrar</button>
+                <button mat-menu-item routerLink="/buscarUsuario">Buscar</button>
+            </ng-template>
+        </mat-menu>
+    </button>
+
+  <button mat-icon-button [matMenuTriggerFor]="config" matTooltip="Ajustes">
+    <mat-icon>settings</mat-icon>
+    <mat-menu #config="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="caja">
+        <mat-icon>all_inbox</mat-icon>
+        <span>Caja</span>
+      </button>
+    </mat-menu>   
+    <mat-menu #caja="matMenu">
+      <button mat-menu-item routerLink="/registrarCaja">Registrar</button>
+      <button mat-menu-item routerLink="/buscarCaja">Buscar</button>
+      <button *ngIf="this.tokenService.rolName" mat-menu-item routerLink="/administrarCaja">Administrar</button>
+    </mat-menu>
+  </button>
+    <button mat-icon-button matTooltip={{this.tokenService.userName}}>
+        <mat-icon>assignment_ind</mat-icon>
+    </button>
+    <button mat-icon-button routerLink="/login" matTooltip="Salir">
+        <mat-icon>logout</mat-icon>
+    </button>
+
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav [(opened)]="opened" mode="push">
+        <mat-nav-list>
+            <mat-list-item routerLink="/menu" matTooltip="Punto U" (click)="opened=!opened">
+                <mat-icon>home</mat-icon>
+            </mat-list-item>
+            <mat-list-item routerLink="/ventasProductos" [class.mat-elevation-z0]="true">
+                <mat-icon>shopping_bag</mat-icon>
+                <span>Catalogo Ventas</span>
+            </mat-list-item>
+                        <mat-list-item routerLink="/cotizacionesProductos" [class.mat-elevation-z0]="true">
+                <mat-icon>addchart</mat-icon>
+                <span>Catalogo Cotizaciones</span>
+            </mat-list-item>
+            <mat-list-item  *ngIf="this.tokenService.rolName" routerLink="/devolucionesProductos" [class.mat-elevation-z0]="true">
+                <mat-icon>assignment_return</mat-icon>
+                <span>Catalogo Devoluciones</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel [class.mat-elevation-z0]="true">
+                <mat-expansion-panel-header>
+                    <mat-icon>person</mat-icon>
+                    <span> Clientes</span>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item routerLink="/registrarCliente">
+                        <span>Registrar</span>
+                    </a>
+                    <a mat-list-item routerLink="/buscarCliente">
+                        <span>Buscar</span>
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel [class.mat-elevation-z0]="true">
+                <mat-expansion-panel-header>
+                    <mat-icon>article</mat-icon>
+                    <span> Articulos</span>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item routerLink="/registrarArticulo">
+                        <span>Registrar</span>
+                    </a>
+                    <a mat-list-item routerLink="/buscarArticulo">
+                        <span>Buscar</span>
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel [class.mat-elevation-z0]="true">
+                <mat-expansion-panel-header>
+                    <mat-icon>location_on</mat-icon>
+                    <span> Ubicaciones</span>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item routerLink="/registrarUbicacion">
+                        <span>Registrar</span>
+                    </a>
+                    <a mat-list-item routerLink="/buscarUbicacion">
+                        <span>Buscar</span>
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel [class.mat-elevation-z0]="true">
+                <mat-expansion-panel-header>
+                    <mat-icon>supervisor_account</mat-icon>
+                    <span> Proveedores</span>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item routerLink="/registrarProveedor">
+                        <span>Registrar</span>
+                    </a>
+                    <a mat-list-item routerLink="/buscarProveedor">
+                        <span>Buscar</span>
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-divider></mat-divider>
+            <mat-list-item routerLink="/comprasProductos" [class.mat-elevation-z0]="true">
+                <mat-icon>shopping_basket</mat-icon>
+                <span>Catalogo Compras</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-expansion-panel [class.mat-elevation-z0]="true">
+                <mat-expansion-panel-header>
+                    <mat-icon>table_chart</mat-icon>
+                    <span> Reportes</span>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item routerLink="/reportesVentas">
+                        <span>Ventas</span>
+                    </a>
+                    <a mat-list-item routerLink="/reportesCompras">
+                        <span>Compras</span>
+                    </a>
+                    <a mat-list-item routerLink="/reportesArticulos">
+                        <span>Stock Articulos</span>
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-card>
+            <div *ngIf="isLoadingResults" class="loading-shade">
+                <mat-progress-spinner color="primary" mode="indeterminate">
+                </mat-progress-spinner>
+            </div>
+            <div align="start">
+                <mat-form-field class="mat-form-field" appearance="outline">
+                    <mat-label>Seleccione Filtro</mat-label>
+                    <mat-icon matSuffix>filter_list</mat-icon>
+                    <mat-select [(ngModel)]="filtroArticulo" required (valueChange)="changeList($event)">
+                        <mat-option disabled>Selecciona una opcíon</mat-option>
+                        <mat-option value="20" disabled>Menor a 20</mat-option>
+                        <mat-option value="50" disabled>Menor a 50</mat-option>
+                        <mat-option value="100" disabled>menor a 100</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div *ngIf="this.tokenService.rolName" align="end" style="margin-top: -75px">
+                    <button mat-icon-button (click)="exportTable()" matTooltip="Exportar">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="mat-elevation-z8" style="margin-top: 15px;">
+                <!--
+                <table mat-table matTableExporter [dataSource]="dataSourceArticulos" matSort cdkDropList
+                cdkDropListOrientation="horizontal" (cdkDropListDropped)="move($event)" #exporter="matTableExporter">
+                -->
+                <table mat-table [dataSource]="dataSourceArticulos" matSort cdkDropList
+                    cdkDropListOrientation="horizontal" (cdkDropListDropped)="move($event)"
+                    id="ReporteDetalleArticulos">
+                    <ng-container matColumnDef="No">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 2%;" mat-header-cell
+                            mat-sort-header cdkDrag *matHeaderCellDef> No </th>
+                        <td mat-cell *matCellDef="let catalogo; let i = index"> {{i+1}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="CodigoBarras">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 10%;" mat-header-cell
+                            mat-sort-header cdkDrag *matHeaderCellDef>Codigo Barras</th>
+                        <td mat-cell *matCellDef="let catalogo">{{catalogo.CodigoBarras}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="Descripcion">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 20%;" mat-header-cell
+                            mat-sort-header cdkDrag *matHeaderCellDef>Descripción</th>
+                        <td mat-cell *matCellDef="let catalogo">{{catalogo.Descripcion}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="Marca">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 10%;" mat-header-cell
+                            mat-sort-header cdkDrag *matHeaderCellDef>Marca</th>
+                        <td mat-cell *matCellDef="let catalogo">{{catalogo.Marca}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="Referencia">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 10%;" mat-header-cell
+                            mat-sort-header cdkDrag *matHeaderCellDef>Referencia</th>
+                        <td mat-cell *matCellDef="let catalogo">{{catalogo.Marca}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="Ubicacion">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 10%;" mat-header-cell
+                            mat-sort-header cdkDrag *matHeaderCellDef>Ubicación</th>
+                        <td mat-cell *matCellDef="let catalogo">{{catalogo.Ubicacion}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="PrecioCompra">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 10%;" mat-header-cell
+                            mat-sort-header cdkDrag *matHeaderCellDef>Precio Compra</th>
+                        <td mat-cell *matCellDef="let catalogo">{{catalogo.PrecioCompra | currency : 'USD' : 'symbol' :
+                            '1.0-0'}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="Stock">
+                        <th style="font-family: Impact; background-color:gainsboro ; width: 10%;" mat-header-cell
+                            mat-sort-header cdkDrag *matHeaderCellDef> Stock </th>
+                        <td mat-cell *matCellDef="let catalogo">{{catalogo.Stock | number: '.0' }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="PrecioVenta">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 10%;" mat-header-cell
+                            mat-sort-header cdkDrag *matHeaderCellDef>Precio Venta</th>
+                        <td mat-cell *matCellDef="let catalogo">{{catalogo.PrecioVenta | currency : 'USD' : 'symbol' :
+                            '1.0-0'}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="PrecioMayoreo">
+                        <th style="font-family: Impact; background-color:gainsboro; width: 10%;" mat-header-cell
+                            mat-sort-header cdkDrag *matHeaderCellDef>Precio Mayoreo</th>
+                        <td mat-cell *matCellDef="let catalogo">{{catalogo.PrecioMayoreo | currency : 'USD' : 'symbol' :
+                            '1.0-0'}}</td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+                </table>
+                <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+                    [showFirstLastButtons]="true" [pageSizeOptions]="pageSizeOptions">
+                </mat-paginator>
+
+            </div>
+            <div *ngIf="mensajeExitoso" class="alert alert-success mt-3">
+                {{ mensajeExitoso }}
+            </div>
+
+            <div *ngIf="mensajeFallido" class="alert alert-danger mt-3">
+                {{ mensajeFallido }}
+            </div>
+
+        </mat-card>
+        <img src="../../assets/PuntoU.jpg" class="img-fluid"
+            style="position: absolute; top: 0; z-index: -100; width: auto; min-height:min-content; max-height: max-content;">
+
+    </mat-sidenav-content>
+</mat-sidenav-container>

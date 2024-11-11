@@ -1,0 +1,15 @@
+.body {
+    margin: 0;
+    padding: 0;
+    /*background: url('../../assets/papeleria.jpg') no-repeat center center fixed;*/
+    background-color: #00499e !important;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+  }
+
+  mat-grid-tile {
+    background: #00499e !important;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+  }
+ 

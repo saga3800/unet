@@ -1,0 +1,46 @@
+.spacer {
+  flex: 1 1 auto;
+} 
+
+mat-card {
+  margin: auto;
+  width: 75%;
+  display: block;
+  margin-top: 1rem;
+  opacity: 95%;
+}
+
+.form {
+margin-left: 1%;
+}
+
+.full-width {
+  margin-top: 2%;
+  width: 100%;
+}
+
+td {
+  padding-right: 8px;
+}
+
+mat-sidenav-container {
+  height: calc(205vh - 115vH);
+  }
+
+  mat-sidenav {
+    width: 230px;
+    background-color: #eee;
+  }
+
+  .colorText {
+    color: white;
+  }
+
+  .loading-shade {
+    position: absolute;
+    display: flex;
+    margin-top: 15%;
+    margin-left: 45%;
+    margin-right: 45%;
+  
+  }
